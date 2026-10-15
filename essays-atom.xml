@@ -1,0 +1,6 @@
+---
+layout: null
+permalink: /essays/atom.xml
+sitemap: false
+---
+{% include atom.xml title="Photographic Essays" subtitle=site.data.site.essays.intro index="/essays/" items=site.essays %}

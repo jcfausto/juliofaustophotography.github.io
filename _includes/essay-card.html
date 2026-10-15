@@ -1,0 +1,20 @@
+{%- assign essay = include.essay -%}
+{%- assign heading = include.heading | default: "h3" -%}
+<a class="essay-card" href="{{ essay.url | relative_url }}">
+  {%- if essay.cover %}
+  <div class="essay-card-cover">
+    {% include picture.html src=essay.cover alt=essay.cover_alt sizes="(max-width: 860px) 100vw, 380px" %}
+  </div>
+  {%- endif %}
+  <div>
+    <div class="meta-line">
+      {%- if essay.location %}<span>{{ essay.location | escape }}</span>{% endif -%}
+      <span>{{ essay.date | date: "%b %Y" }}</span>
+      {%- if essay.subject %}<span>{{ essay.subject | escape }}</span>{% endif -%}
+    </div>
+    <{{ heading }}>{{ essay.title | escape }}</{{ heading }}>
+    {%- if essay.description %}
+    <p>{{ essay.description | escape }}</p>
+    {%- endif %}
+  </div>
+</a>

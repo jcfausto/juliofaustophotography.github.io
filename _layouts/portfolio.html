@@ -1,0 +1,25 @@
+---
+layout: default
+---
+
+{%- assign copy = site.data.site.portfolio -%}
+{%- assign galleries = site.galleries | sort: "order" -%}
+
+<header class="page-hero">
+  <div class="wrap">
+    <div class="eyebrow">{{ copy.eyebrow }}</div>
+    <h1 class="title">{{ copy.title }}</h1>
+    <p class="hero-sub">{{ copy.intro }}</p>
+  </div>
+</header>
+
+<div class="wrap gallery-page">
+  <div class="gallery-rows">
+    {% for gallery in galleries %}
+      {%- assign flip = false -%}
+      {%- assign parity = forloop.index | modulo: 2 -%}
+      {%- if parity == 0 -%}{%- assign flip = true -%}{%- endif %}
+      {% include gallery-row.html gallery=gallery flip=flip %}
+    {% endfor %}
+  </div>
+</div>

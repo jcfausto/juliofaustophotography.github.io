@@ -1,0 +1,19 @@
+<footer id="contact">
+  <div class="wrap">
+    <div class="eyebrow">{{ site.data.site.contact.eyebrow }}</div>
+    <h2 class="contact-cta">{{ site.data.site.contact.cta }}</h2>
+    <div class="contact-links">
+      {% for link in site.data.site.contact.links %}
+        {% if link.url contains 'mailto:' or link.url contains '://' %}
+          <a href="{{ link.url }}"{% if link.url contains '://' %} rel="me noopener"{% endif %}>{{ link.label }}</a>
+        {% else %}
+          <a href="{{ link.url | relative_url }}">{{ link.label }}</a>
+        {% endif %}
+      {% endfor %}
+    </div>
+    <div class="foot-row">
+      <span>&copy; {{ site.time | date: '%Y' }} {{ site.author }} · <a href="{{ '/LICENSE' | relative_url }}">All rights reserved</a></span>
+      <span>Photographs may not be reused without permission.</span>
+    </div>
+  </div>
+</footer>

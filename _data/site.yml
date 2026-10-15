@@ -1,0 +1,84 @@
+nav_mark: Julio Cesar Fausto
+nav_descriptor: Photography
+
+nav:
+  - label: Portfolio
+    url: /portfolio/
+    layouts: [portfolio, gallery]
+  - label: Essays
+    url: /essays/
+    layouts: [essays, essay]
+  - label: Field Notes
+    url: /field-notes/
+    layouts: [field-notes, field-note]
+  - label: Prints
+    url: /prints/
+    layouts: [prints]
+  - label: About
+    url: /about/
+    layouts: [about]
+
+youtube:
+  url: https://www.youtube.com/@jcfausto
+  eyebrow: YouTube
+  title: Photography in practice
+  note: Fieldwork, photographic projects, equipment experiences, and lessons learned.
+  cta: Visit the channel →
+
+portfolio:
+  eyebrow: Portfolio
+  title: Portfolio
+  intro: Three ongoing collections — architecture and cityscapes, woodlands and landscapes, nature and wildlife. Selected photographs, in the order I'd like them seen.
+  home_title: Explore the portfolio
+  home_note: Selected photographs, grouped by subject.
+  more: The full portfolio →
+
+essays:
+  eyebrow: Essays
+  title: Photographic Essays
+  intro: Complete photographic projects — a place or an idea developed through an intentional sequence of images and text.
+  home_title: Photographic essays
+  home_note: Projects told through sequences of photographs and writing.
+  more: All essays →
+  empty: The first essays are in progress.
+
+field_notes:
+  eyebrow: Field Notes
+  title: Field Notes
+  intro: Shorter writing about photographic practice — fieldwork, technique, equipment, and what I learn along the way.
+  home_title: Recent field notes
+  home_note: Notes on cameras, craft, and going out to look.
+  more: All field notes →
+
+about:
+  eyebrow: About
+  title: Julio Cesar Fausto
+  portrait: /assets/images/julio-portrait.png
+  portrait_alt: Portrait of Julio Cesar Fausto
+  bio:
+    - "I'm Julio Cesar Fausto, a photographer interested in architecture, landscapes, and the natural world."
+    - "Photography is a way for me to observe more carefully, explore unfamiliar places, and understand how light, geometry, and perspective shape what we see."
+    - "Through photographic essays and field notes, I share selected images, the decisions behind them, and what I learn along the way."
+  interests:
+    - Architecture & cityscapes
+    - Woodlands & landscapes
+    - Nature & wildlife
+  professional_note: "Outside photography, I work in technology. That side of my life lives at"
+  professional_url: https://jcfausto.com
+  professional_label: jcfausto.com
+
+contact:
+  eyebrow: Get in touch
+  cta: Always up for a good frame.
+  email: jcfausto@gmail.com
+  links:
+    - label: jcfausto@gmail.com
+      url: mailto:jcfausto@gmail.com
+    - label: YouTube
+      url: https://www.youtube.com/@jcfausto
+    - label: Instagram
+      url: https://www.instagram.com/juliofaustophotography/
+    - label: jcfausto.com
+      url: https://jcfausto.com
+    - label: RSS
+      url: /rss.xml

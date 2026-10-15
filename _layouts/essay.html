@@ -1,0 +1,64 @@
+---
+layout: default
+---
+
+{%- assign others = site.essays | where_exp: "e", "e.url != page.url" | sort: "date" | reverse -%}
+{%- if page.gallery -%}
+  {%- assign related_gallery = site.galleries | where: "slug", page.gallery | first -%}
+{%- endif -%}
+
+<article class="essay">
+  <header class="essay-head">
+    <div class="eyebrow">{{ site.data.site.essays.eyebrow }}{% if page.status == "draft" %} · Draft{% endif %}</div>
+    <h1 class="title">{{ page.title | escape }}</h1>
+    {%- if page.subtitle %}
+    <p class="essay-subtitle">{{ page.subtitle | escape }}</p>
+    {%- endif %}
+    <div class="meta-line">
+      {%- if page.location %}<span>{{ page.location | escape }}</span>{% endif -%}
+      <span><time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%-d %B %Y" }}</time></span>
+      {%- if page.subject %}<span>{{ page.subject | escape }}</span>{% endif -%}
+    </div>
+    {%- if page.intro %}
+    <p class="essay-lede">{{ page.intro | escape }}</p>
+    {%- endif %}
+  </header>
+
+  {%- if page.cover %}
+  <figure class="essay-opening">
+    {% include picture.html src=page.cover alt=page.cover_alt sizes="(max-width: 1180px) 100vw, 1116px" eager=true zoom=true %}
+    {%- if page.cover_caption %}
+    <figcaption class="photo-caption">{{ page.cover_caption | escape }}</figcaption>
+    {%- endif %}
+  </figure>
+  {%- endif %}
+
+  <div class="essay-body prose">
+    {{ content }}
+  </div>
+
+  {%- if page.video_url %}
+  <section class="essay-video" aria-labelledby="essay-video-title">
+    <h2 id="essay-video-title">Companion video</h2>
+    {% include video.html url=page.video_url title=page.video_title poster=page.video_poster %}
+  </section>
+  {%- endif %}
+
+  <footer class="essay-more">
+    {%- if others.size > 0 %}
+    <h2>More photographic essays</h2>
+    <div class="essay-card-grid">
+      {% for essay in others limit: 3 %}
+        {% include essay-card.html essay=essay %}
+      {% endfor %}
+    </div>
+    {%- endif %}
+    <nav class="back-links" aria-label="Essay navigation">
+      <a href="{{ '/essays/' | relative_url }}">← All essays</a>
+      {%- if related_gallery %}
+      <a href="{{ related_gallery.url | relative_url }}">Portfolio: {{ related_gallery.title | escape }}</a>
+      {%- endif %}
+      <a href="{{ '/portfolio/' | relative_url }}">Portfolio</a>
+    </nav>
+  </footer>
+</article>

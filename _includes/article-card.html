@@ -1,0 +1,21 @@
+{%- assign post = include.post -%}
+{%- assign blurb = post.description -%}
+{%- unless blurb -%}
+  {%- assign blurb = post.content | strip_html | normalize_whitespace | truncate: 180 -%}
+{%- endunless -%}
+<article class="article-card">
+  {%- if post.image %}
+  <div class="article-card-thumb">
+    {% include picture.html src=post.image alt="" sizes="(max-width: 860px) 100vw, 380px" %}
+  </div>
+  {%- endif %}
+  <div class="meta">
+    <span>{{ post.category | default: "Field note" }}</span>
+    <span><time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%-d %b %Y" }}</time></span>
+  </div>
+  <h3><a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a></h3>
+  {%- if blurb != "" %}
+  <p>{{ blurb | escape }}</p>
+  {%- endif %}
+  <a class="read" href="{{ post.url | relative_url }}" aria-hidden="true" tabindex="-1">Read the note</a>
+</article>

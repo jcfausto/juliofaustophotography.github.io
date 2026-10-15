@@ -1,0 +1,20 @@
+{%- comment -%}
+  A single photograph inside an essay or field note.
+
+  {% include essay-photo.html src="/assets/images/photography/essays/slug/01.jpg"
+     alt="…" caption="…" display="wide" %}
+
+  display: text (default, text column) · wide (gallery width) · full (edge to edge)
+{%- endcomment -%}
+{%- assign display = include.display | default: "text" -%}
+{%- case display -%}
+  {%- when "full" -%}{%- assign sizes = "100vw" -%}
+  {%- when "wide" -%}{%- assign sizes = "(max-width: 1180px) 100vw, 1116px" -%}
+  {%- else -%}{%- assign sizes = "(max-width: 760px) 100vw, 696px" -%}
+{%- endcase -%}
+<figure class="essay-photo essay-photo--{{ display }}">
+  {% include picture.html src=include.src alt=include.alt sizes=sizes zoom=true eager=include.eager %}
+  {%- if include.caption %}
+  <figcaption>{{ include.caption }}</figcaption>
+  {%- endif %}
+</figure>

@@ -1,0 +1,20 @@
+{%- comment -%}
+  Click-to-load YouTube video. Nothing is requested from YouTube until the
+  visitor presses play; the iframe then uses youtube-nocookie.com.
+
+  url     (required) any youtube.com / youtu.be URL
+  title   accessible title, default "Companion video"
+  poster  optional local image shown before playback
+{%- endcomment -%}
+{%- assign video_id = include.url | split: "v=" | last | split: "&" | first | split: "/" | last | split: "?" | first -%}
+{%- assign video_title = include.title | default: "Companion video" -%}
+<div class="video-facade" data-video-id="{{ video_id }}" data-video-title="{{ video_title | escape }}">
+  {%- if include.poster %}
+  {% include picture.html src=include.poster alt="" sizes="(max-width: 760px) 100vw, 696px" class="video-poster" %}
+  {%- endif %}
+  <button type="button" class="video-play">
+    <span class="video-play-icon" aria-hidden="true"></span>
+    <span class="video-play-label">Play video<span class="visually-hidden">: {{ video_title | escape }}</span></span>
+  </button>
+  <p class="video-note">Loads from YouTube when played. <a href="https://www.youtube.com/watch?v={{ video_id }}" rel="noopener">Watch on YouTube</a></p>
+</div>

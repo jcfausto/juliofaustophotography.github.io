@@ -1,0 +1,9 @@
+featured_photo:
+  src: /assets/images/photography/woodlands-and-landscapes/20240929-A7304435-JULIOFAUSTOPHOTOGRAPHY-GALLERY-TUSCANY.jpg
+  alt: "Rolling Tuscan hills under soft light"
+  caption: "Tuscany, Italy"
+  frame: true
+  print: early-morning-tuscany-hills  # print.id of a photo in _data/photos.yml; shows "Buy a print"
+
+title: Photography as observation.
+intro: A personal exploration of architecture, landscapes, and the natural world through photography.

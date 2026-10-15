@@ -1,0 +1,28 @@
+{%- comment -%}
+  Two photographs side by side (stacked on small screens).
+
+  {% include essay-pair.html
+     src1="…" alt1="…" caption1="…"
+     src2="…" alt2="…" caption2="…"
+     caption="Optional shared caption" %}
+{%- endcomment -%}
+{%- assign sizes = "(max-width: 720px) 100vw, 550px" -%}
+<figure class="essay-pair">
+  <div class="essay-pair-items">
+    <figure>
+      {% include picture.html src=include.src1 alt=include.alt1 sizes=sizes zoom=true %}
+      {%- if include.caption1 %}
+      <figcaption>{{ include.caption1 }}</figcaption>
+      {%- endif %}
+    </figure>
+    <figure>
+      {% include picture.html src=include.src2 alt=include.alt2 sizes=sizes zoom=true %}
+      {%- if include.caption2 %}
+      <figcaption>{{ include.caption2 }}</figcaption>
+      {%- endif %}
+    </figure>
+  </div>
+  {%- if include.caption %}
+  <figcaption>{{ include.caption }}</figcaption>
+  {%- endif %}
+</figure>

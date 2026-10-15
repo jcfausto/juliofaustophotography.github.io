@@ -1,0 +1,6 @@
+---
+layout: null
+permalink: /field-notes/atom.xml
+sitemap: false
+---
+{% include atom.xml title="Field Notes" subtitle=site.data.site.field_notes.intro index="/field-notes/" items=site.field_notes %}

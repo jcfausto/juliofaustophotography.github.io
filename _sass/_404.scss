@@ -1,0 +1,12 @@
+.error-page {
+  min-height: 70vh;
+  padding: 160px 0 80px;
+}
+
+.error-page .title {
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: clamp(72px, 14vw, 140px);
+  line-height: .9;
+  letter-spacing: -.03em;
+}

@@ -1,0 +1,134 @@
+---
+layout: default
+---
+
+{%- assign prints = site.data.prints -%}
+{%- assign email = site.data.site.contact.email -%}
+{%- assign printable = site.data.photos | where_exp: "p", "p.print" -%}
+{%- assign default_id = prints.default -%}
+{%- assign default_photo = printable | where_exp: "p", "p.print.id == default_id" | first -%}
+{%- unless default_photo -%}{%- assign default_photo = printable | first -%}{%- endunless -%}
+
+<header class="page-hero">
+  <div class="wrap">
+    <div class="eyebrow">{{ prints.eyebrow }}</div>
+    <h1 class="title">{{ prints.title }}</h1>
+    <p class="hero-sub">{{ prints.intro }}</p>
+  </div>
+</header>
+
+<div class="wrap prints-page">
+  <div class="prints-viewer" data-prints data-default="{{ default_photo.print.id }}">
+    {% for photo in printable %}
+      {%- assign print = photo.print -%}
+      {%- assign title = print.title | default: photo.caption | default: photo.alt -%}
+      {%- assign img = site.data.images[photo.src] -%}
+      {%- if img.width >= img.height -%}
+        {%- assign ratio = img.width | times: 1.0 | divided_by: img.height -%}
+      {%- else -%}
+        {%- assign ratio = img.height | times: 1.0 | divided_by: img.width -%}
+      {%- endif -%}
+      {%- assign print_sizes = print.sizes -%}
+      {%- if print_sizes == nil or print_sizes.size == 0 -%}
+        {%- assign best = 99 -%}
+        {%- for set in prints.size_sets -%}
+          {%- assign diff = ratio | minus: set.ratio | abs -%}
+          {%- if diff < best -%}{%- assign best = diff -%}{%- assign print_sizes = set.sizes -%}{%- endif -%}
+        {%- endfor -%}
+      {%- endif -%}
+      {%- assign first_size = print_sizes.first.label | default: "" -%}
+      {%- capture subject -%}Print request: {{ title }} ({{ print.id }}), __SIZE__{%- endcapture -%}
+      {%- capture body -%}Hello Julio,
+
+I'd like a print of "{{ title }}", print ID {{ print.id }} ({{ site.url }}{{ '/prints/' | relative_url }}#{{ print.id }}).
+
+Size: __SIZE__
+Delivery country:
+{%- endcapture -%}
+      {%- assign subject_q = subject | replace: "__SIZE__", first_size | url_encode | replace: "+", "%20" -%}
+      {%- assign body_q = body | replace: "__SIZE__", first_size | url_encode | replace: "+", "%20" -%}
+      {%- assign is_default = false -%}
+      {%- if print.id == default_photo.print.id -%}{%- assign is_default = true -%}{%- endif %}
+      {%- assign portrait = false -%}
+      {%- if img.height > img.width -%}{%- assign portrait = true -%}{%- endif -%}
+      {%- if first_size != "" -%}
+        {%- include print-dims.html label=first_size portrait=portrait -%}
+      {%- else -%}
+        {%- assign print_w = 40 -%}{%- assign print_h = 40 | divided_by: ratio | round -%}
+      {%- endif %}
+    <article class="print-item" id="{{ print.id }}" data-print-panel aria-labelledby="{{ print.id }}-title">
+      <div class="print-item-photo">
+        <div class="print-scene" style="--w: {{ print_w }}; --h: {{ print_h }};" data-print-scene>
+          <div class="frame print-scene-frame">
+            <div class="frame-mat">
+              <div class="frame-opening">
+                {% include picture.html src=photo.src alt=photo.alt sizes="(max-width: 860px) 60vw, 360px" zoom=true eager=is_default %}
+              </div>
+            </div>
+          </div>
+          <div class="print-scene-sideboard" aria-hidden="true"></div>
+          <div class="print-scene-floor" aria-hidden="true"></div>
+        </div>
+        {%- if prints.scale_note %}
+        <p class="print-scene-note">{{ prints.scale_note }}</p>
+        {%- endif %}
+      </div>
+      <div class="print-item-meta">
+        {%- if print.title and photo.caption %}
+        <span class="year-heading">{{ photo.caption | escape }}</span>
+        {%- endif %}
+        <h2 id="{{ print.id }}-title">{{ title | escape }}</h2>
+        <p class="print-ref">{{ prints.id_label }} <code>{{ print.id }}</code></p>
+        {%- if print_sizes.size > 0 %}
+        <fieldset class="print-sizes">
+          <legend class="year-heading">{{ prints.size_label }}</legend>
+          {%- for size in print_sizes %}
+          {%- include print-dims.html label=size.label portrait=portrait %}
+          <label class="print-size">
+            <input type="radio" name="size-{{ print.id }}" value="{{ size.label | escape }}" data-print-size data-w="{{ print_w }}" data-h="{{ print_h }}"{% if forloop.first %} checked{% endif %}>
+            <span class="print-size-label">{{ size.label | escape }}</span>
+            {%- if size.price %}
+            <span class="print-size-price">{{ size.price | escape }}</span>
+            {%- endif %}
+          </label>
+          {%- endfor %}
+        </fieldset>
+        {%- unless print_sizes.first.price %}
+        <p>{{ prints.on_request }}</p>
+        {%- endunless %}
+        {%- endif %}
+        <a class="button" href="mailto:{{ email }}?subject={{ subject_q }}&amp;body={{ body_q }}" data-print-request data-mail="{{ email }}" data-subject="{{ subject | escape }}" data-body="{{ body | escape }}">{{ prints.cta }}</a>
+      </div>
+    </article>
+    {% endfor %}
+
+    {%- if printable.size > 1 %}
+    <nav class="print-thumbs" aria-labelledby="print-thumbs-title">
+      <h2 class="year-heading" id="print-thumbs-title">{{ prints.choose }}</h2>
+      <ul>
+        {%- for photo in printable %}
+        {%- assign title = photo.print.title | default: photo.caption | default: photo.alt %}
+        <li>
+          <a class="print-thumb" href="#{{ photo.print.id }}" data-print-thumb="{{ photo.print.id }}">
+            {% include picture.html src=photo.src alt="" sizes="160px" %}
+            <span class="visually-hidden">{{ title | escape }} ({{ photo.print.id }})</span>
+          </a>
+        </li>
+        {%- endfor %}
+      </ul>
+    </nav>
+    {%- endif %}
+  </div>
+
+  <section class="prints-how" aria-labelledby="prints-how-title">
+    <h2 id="prints-how-title">{{ prints.how_title }}</h2>
+    <ol>
+      {%- for step in prints.how %}
+      <li>{{ step }}</li>
+      {%- endfor %}
+    </ol>
+    {%- if prints.other %}
+    <p>{{ prints.other }} <a href="mailto:{{ email }}?subject={{ 'Print request' | url_encode | replace: '+', '%20' }}">{{ email }}</a></p>
+    {%- endif %}
+  </section>
+</div>

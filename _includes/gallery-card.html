@@ -1,0 +1,19 @@
+{%- assign gallery = include.gallery -%}
+{%- assign heading = include.heading | default: "h3" -%}
+{%- assign photos = site.data.photos | where: "collection", gallery.slug -%}
+{%- assign cover_photo = site.data.photos | where: "src", gallery.cover | first -%}
+{%- assign cover_alt = gallery.cover_alt | default: cover_photo.alt -%}
+<a class="gallery-card" href="{{ gallery.url | relative_url }}">
+  <div class="gallery-card-cover">
+    {%- if gallery.cover %}
+    {% include picture.html src=gallery.cover alt=cover_alt sizes=include.sizes %}
+    {%- endif %}
+  </div>
+  <div class="gallery-card-meta">
+    <span class="year-heading">{% if photos.size == 1 %}1 photograph{% else %}{{ photos.size }} photographs{% endif %}</span>
+    <{{ heading }}>{{ gallery.title | escape }}</{{ heading }}>
+    {%- if gallery.description %}
+    <p>{{ gallery.description | escape }}</p>
+    {%- endif %}
+  </div>
+</a>

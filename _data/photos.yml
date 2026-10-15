@@ -1,0 +1,354 @@
+- src: /assets/images/photography/woodlands-and-landscapes/20240928-A7303981-HDR-JULIOFAUSTOPHOTOGRAPHY-GALLERY-TUSCANY.jpg
+  alt: "Tuscany hills at golden hour"
+  caption: "Tuscany, Italy"
+  collection: woodlands-and-landscapes
+  featured: true
+  class: p1
+
+- src: /assets/images/photography/architectural-and-cityscapes/20260606-Architectural-Photography.jpg
+  alt: "Architectural cityscape"
+  caption: "Architectural study"
+  collection: architectural-and-cityscapes
+  featured: true
+  class: p2
+  print:
+    id: architectural-study-symmetry
+
+- src: /assets/images/photography/woodlands-and-landscapes/20250420-A7307526.jpg
+  alt: "Woodland cabin in Denmark"
+  caption: "Woodland cabin in Denmark"
+  collection: woodlands-and-landscapes
+  featured: true
+  class: p3
+  print:
+    id: woodland-cabin-denmark
+
+- src: /assets/images/photography/woodlands-and-landscapes/20240928-A7303981-HDR-Watermarked.jpg
+  alt: "Tuscan hills, HDR"
+  caption: "Tuscan hills, HDR"
+  collection: woodlands-and-landscapes
+  featured: true
+  class: p4
+
+- src: /assets/images/photography/woodlands-and-landscapes/IMG_0324_IMBITUBA_BRAZIL_FEB_2024_BEACH_BLUE_SKY.jpg
+  alt: "Beach with blue sky in Imbituba, Brazil"
+  caption: "Imbituba, Brazil"
+  collection: woodlands-and-landscapes
+  featured: true
+  class: p5
+
+- src: /assets/images/photography/nature-and-animal-life/20250420-A7307690.jpg
+  alt: "Wildlife in natural habitat"
+  caption: "Wildlife, Apr 2025"
+  collection: nature-and-animal-life
+  featured: true
+  class: p6
+
+- src: /assets/images/photography/nature-and-animal-life/20251026-Z72_0031-Enhanced-NR.jpg
+  alt: "Nature scene"
+  caption: "Oct 2025"
+  collection: nature-and-animal-life
+  featured: true
+  class: p7
+
+- src: /assets/images/photography/woodlands-and-landscapes/20230410-DSC01319.jpg
+  alt: "Southern Germany Mountains and Valleys"
+  caption: "Southern Germany Mountains and Valleys"
+  collection: woodlands-and-landscapes
+  featured: true
+  class: p8
+  print:
+    id: southern-germany-mountains-and-valleys
+
+- src: /assets/images/photography/woodlands-and-landscapes/20230407-DSC00562-3.jpg
+  alt: "Southern Germany Mountains and Valleys"
+  caption: "Southern Germany Mountains and Valleys"
+  collection: woodlands-and-landscapes
+
+- src: /assets/images/photography/woodlands-and-landscapes/20230407-DSC00597.jpg
+  alt: "Neuschwanstein Castle in the rain"
+  caption: "Neuschwanstein Castle in the rain"
+  collection: woodlands-and-landscapes
+  print:
+    id: neuschwanstein-castle-rain
+
+- src: /assets/images/photography/woodlands-and-landscapes/20240512-DSC03143.jpg
+  alt: "Wineyards in Urubici, Brazil"
+  caption: "Wineyards in Urubici, Brazil"
+  collection: woodlands-and-landscapes
+  print:
+    id: wineyards-in-urubici-brazil
+
+- src: /assets/images/photography/woodlands-and-landscapes/20240927-Z30_0672.jpg
+  alt: "Tuscany"
+  caption: "Tuscany, Italy"
+  collection: woodlands-and-landscapes
+
+- src: /assets/images/photography/woodlands-and-landscapes/20240928-A7304080.jpg
+  alt: "Tuscan landscape"
+  caption: "Tuscany, Italy"
+  collection: woodlands-and-landscapes
+
+- src: /assets/images/photography/woodlands-and-landscapes/20240929-A7304291.jpg
+  alt: "Tuscany"
+  caption: "Tuscany, Italy"
+  collection: woodlands-and-landscapes
+
+- src: /assets/images/photography/woodlands-and-landscapes/20240929-A7304374.jpg
+  alt: "Tuscany"
+  caption: "Tuscany, Italy"
+  collection: woodlands-and-landscapes
+
+- src: /assets/images/photography/woodlands-and-landscapes/20240929-A7304435-JULIOFAUSTOPHOTOGRAPHY-GALLERY-TUSCANY.jpg
+  alt: "Tuscan landscape"
+  caption: "Tuscany, Italy"
+  collection: woodlands-and-landscapes
+  print:
+    id: early-morning-tuscany-hills
+
+- src: /assets/images/photography/woodlands-and-landscapes/20240930-A7304942.jpg
+  alt: "Tuscany"
+  caption: "Tuscany, Italy"
+  collection: woodlands-and-landscapes
+
+- src: /assets/images/photography/woodlands-and-landscapes/20240930-A7305210.jpg
+  alt: "Tuscany"
+  caption: "Tuscany, Italy"
+  collection: woodlands-and-landscapes
+
+- src: /assets/images/photography/woodlands-and-landscapes/20240930-Z30_0805.jpg
+  alt: "Tuscany"
+  caption: "Tuscany, Italy"
+  collection: woodlands-and-landscapes
+
+- src: /assets/images/photography/woodlands-and-landscapes/20241001-A7305404.jpg
+  alt: "Tuscany Green Rolling Hills "
+  caption: "Tuscany Green Rolling Hills"
+  collection: woodlands-and-landscapes
+  print:
+    id: tuscany-green-rolling-hills
+
+- src: /assets/images/photography/woodlands-and-landscapes/20241001-A7305420.jpg
+  alt: "Tuscany"
+  caption: "Tuscany, Italy"
+  collection: woodlands-and-landscapes
+
+- src: /assets/images/photography/woodlands-and-landscapes/20250418-A7307019.jpg
+  alt: "Skagen, Denmark"
+  caption: "Skagen, Denmark"
+  collection: woodlands-and-landscapes
+
+- src: /assets/images/photography/woodlands-and-landscapes/20250418-A7307156.jpg
+  alt: "Skagen, Denmark"
+  caption: "Skagen, Denmark"
+  collection: woodlands-and-landscapes
+  print:
+    id: skagen-denmark-beach
+
+- src: /assets/images/photography/woodlands-and-landscapes/20250418-A7307245.jpg
+  alt: "Rubjerg Knude Lighthouse, Denmark"
+  caption: "Rubjerg Knude Lighthouse, Denmark"
+  collection: woodlands-and-landscapes
+
+- src: /assets/images/photography/woodlands-and-landscapes/20250418-A7307393.jpg
+  alt: "Rubjerg Knude Lighthouse, Denmark"
+  caption: "Rubjerg Knude Lighthouse at sunset, Denmark"
+  collection: woodlands-and-landscapes
+  print:
+    id: rubjerg-knude-lighthouse-sunset
+
+- src: /assets/images/photography/woodlands-and-landscapes/20250420-A7307522.jpg
+  alt: "Lone Tree, Denmark"
+  caption: "Lone Tree, Denmark"
+  collection: woodlands-and-landscapes
+  print:
+    id: lone-tree-denmark
+
+- src: /assets/images/photography/woodlands-and-landscapes/20250420-A7307570.jpg
+  alt: "Woodland, Denmark"
+  caption: "Woodland, Denmark"
+  collection: woodlands-and-landscapes
+
+- src: /assets/images/photography/woodlands-and-landscapes/20250420-A7307595.jpg
+  alt: "Fairy Tale Trees, Denmark"
+  caption: "Fairy Tale Trees, Denmark"
+  collection: woodlands-and-landscapes
+
+- src: /assets/images/photography/woodlands-and-landscapes/20250420-A7307629.jpg
+  alt: "Fairy Tale Trees, Denmark "
+  caption: "Fairy Tale Trees, Denmark"
+  collection: woodlands-and-landscapes
+  print:
+    id: fairy-tale-tree-denmark
+
+- src: /assets/images/photography/woodlands-and-landscapes/20250421-A7307725.jpg
+  alt: "Lone Tree, Denmark"
+  caption: "Lone Tree, Denmark"
+  collection: woodlands-and-landscapes
+  print:
+    id: lone-tree-cloud-sky-denmark
+
+- src: /assets/images/photography/nature-and-animal-life/20230723-DSC01877.jpg
+  alt: "Nature & Animal Life, Jul 2023"
+  caption: "Jul 2023"
+  collection: nature-and-animal-life
+
+- src: /assets/images/photography/nature-and-animal-life/20230723-DSC01908.jpg
+  alt: "Nature & Animal Life, Jul 2023"
+  caption: "Jul 2023"
+  collection: nature-and-animal-life
+
+- src: /assets/images/photography/nature-and-animal-life/20230723-DSC01909.jpg
+  alt: "Nature & Animal Life, Jul 2023"
+  caption: "Jul 2023"
+  collection: nature-and-animal-life
+
+- src: /assets/images/photography/nature-and-animal-life/20230723-DSC01952.jpg
+  alt: "Nature & Animal Life, Jul 2023"
+  caption: "Jul 2023"
+  collection: nature-and-animal-life
+
+- src: /assets/images/photography/nature-and-animal-life/20230723-DSC01959.jpg
+  alt: "Nature & Animal Life, Jul 2023"
+  caption: "Jul 2023"
+  collection: nature-and-animal-life
+
+- src: /assets/images/photography/nature-and-animal-life/20231202-DSC02216.jpg
+  alt: "Nature & Animal Life, Dec 2023"
+  caption: "Dec 2023"
+  collection: nature-and-animal-life
+
+- src: /assets/images/photography/nature-and-animal-life/20231202-DSC02280.jpg
+  alt: "Nature & Animal Life, Dec 2023"
+  caption: "Dec 2023"
+  collection: nature-and-animal-life
+
+- src: /assets/images/photography/nature-and-animal-life/20231230-DSC02622.jpg
+  alt: "Nature & Animal Life, Dec 2023"
+  caption: "Dec 2023"
+  collection: nature-and-animal-life
+
+- src: /assets/images/photography/nature-and-animal-life/20240512-DSC03085.jpg
+  alt: "Nature & Animal Life, May 2024"
+  caption: "May 2024"
+  collection: nature-and-animal-life
+
+- src: /assets/images/photography/nature-and-animal-life/20240512-DSC03114.jpg
+  alt: "Nature & Animal Life, May 2024"
+  caption: "May 2024"
+  collection: nature-and-animal-life
+
+- src: /assets/images/photography/nature-and-animal-life/20240803-DSC03323.jpg
+  alt: "Nature & Animal Life, Aug 2024"
+  caption: "Aug 2024"
+  collection: nature-and-animal-life
+
+- src: /assets/images/photography/nature-and-animal-life/20240803-DSC03365.jpg
+  alt: "Nature & Animal Life, Aug 2024"
+  caption: "Aug 2024"
+  collection: nature-and-animal-life
+
+- src: /assets/images/photography/nature-and-animal-life/20240803-DSC03383.jpg
+  alt: "Nature & Animal Life, Aug 2024"
+  caption: "Aug 2024"
+  collection: nature-and-animal-life
+
+- src: /assets/images/photography/nature-and-animal-life/20240803-DSC03384.jpg
+  alt: "Nature & Animal Life, Aug 2024"
+  caption: "Aug 2024"
+  collection: nature-and-animal-life
+
+- src: /assets/images/photography/nature-and-animal-life/20240929-A7304647-JULIOFAUSTOPHOTOGRAPHY-GALLERY-TUSCANY.jpg
+  alt: "Nature in Tuscany"
+  caption: "Tuscany, Italy"
+  collection: nature-and-animal-life
+
+- src: /assets/images/photography/nature-and-animal-life/20250406-A7306765.jpg
+  alt: "Nature & Animal Life, Apr 2025"
+  caption: "Apr 2025"
+  collection: nature-and-animal-life
+
+- src: /assets/images/photography/nature-and-animal-life/20250406-A7306836.jpg
+  alt: "Nature & Animal Life, Apr 2025"
+  caption: "Apr 2025"
+  collection: nature-and-animal-life
+
+- src: /assets/images/photography/nature-and-animal-life/20250418-A7307071.jpg
+  alt: "Nature & Animal Life, Apr 2025"
+  caption: "Apr 2025"
+  collection: nature-and-animal-life
+
+- src: /assets/images/photography/nature-and-animal-life/20250418-A7307123.jpg
+  alt: "Nature & Animal Life, Apr 2025"
+  caption: "Apr 2025"
+  collection: nature-and-animal-life
+
+- src: /assets/images/photography/nature-and-animal-life/20250420-A7307664.jpg
+  alt: "Nature & Animal Life, Apr 2025"
+  caption: "Apr 2025"
+  collection: nature-and-animal-life
+
+- src: /assets/images/photography/nature-and-animal-life/20251026-Z72_0024.jpg
+  alt: "Nature & Animal Life, Oct 2025"
+  caption: "Oct 2025"
+  collection: nature-and-animal-life
+
+- src: /assets/images/photography/nature-and-animal-life/20251026-Z72_0025.jpg
+  alt: "Nature & Animal Life, Oct 2025"
+  caption: "Oct 2025"
+  collection: nature-and-animal-life
+
+- src: /assets/images/photography/nature-and-animal-life/20251026-Z72_0030-Enhanced-NR.jpg
+  alt: "Nature & Animal Life, Oct 2025"
+  caption: "Oct 2025"
+  collection: nature-and-animal-life
+
+- src: /assets/images/photography/nature-and-animal-life/A7306009-500px.jpg
+  alt: "Nature & Animal Life"
+  caption: "Nature & Animal Life"
+  collection: nature-and-animal-life
+
+- src: /assets/images/photography/nature-and-animal-life/A7306059-500px.jpg
+  alt: "Nature & Animal Life"
+  caption: "Nature & Animal Life"
+  collection: nature-and-animal-life
+
+- src: /assets/images/photography/nature-and-animal-life/A7306173-500px.jpg
+  alt: "Nature & Animal Life"
+  caption: "Nature & Animal Life"
+  collection: nature-and-animal-life
+
+- src: /assets/images/photography/nature-and-animal-life/A7306200-500px.jpg
+  alt: "Nature & Animal Life"
+  caption: "Nature & Animal Life"
+  collection: nature-and-animal-life
+
+- src: /assets/images/photography/nature-and-animal-life/A7306211-500px.jpg
+  alt: "Nature & Animal Life"
+  caption: "Nature & Animal Life"
+  collection: nature-and-animal-life
+
+- src: /assets/images/photography/nature-and-animal-life/A7306272-500px.jpg
+  alt: "Nature & Animal Life"
+  caption: "Nature & Animal Life"
+  collection: nature-and-animal-life
+
+- src: /assets/images/photography/architectural-and-cityscapes/20261011-_A110476.jpg
+  alt: "Curved facade of coloured vertical slats and balconies at the Bundespräsidialamt"
+  caption: "Bundespräsidialamt, Berlin"
+  collection: architectural-and-cityscapes
+
+- src: /assets/images/photography/architectural-and-cityscapes/20261011-_A110527.jpg
+  alt: "Ochre curved canopy and glass entrance at the Haus der Kulturen der Welt"
+  caption: "Haus der Kulturen der Welt, Berlin"
+  collection: architectural-and-cityscapes
+
+- src: /assets/images/photography/architectural-and-cityscapes/20261011-_A110607.jpg
+  alt: "Glass facade and thin roof of the Paul-Löbe-Haus"
+  caption: "Paul-Löbe-Haus, Berlin"
+  collection: architectural-and-cityscapes
+
+- src: /assets/images/photography/architectural-and-cityscapes/20261011-_A110621.jpg
+  alt: "The colourful Bundespräsidialamt and a neighbouring office building on the Spree"
+  caption: "Bundespräsidialamt, Berlin"
+  collection: architectural-and-cityscapes

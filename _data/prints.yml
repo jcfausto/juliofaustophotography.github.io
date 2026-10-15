@@ -1,0 +1,58 @@
+# Copy and sizes for /prints/. Which photos are printable is set in
+# _data/photos.yml:
+#
+#   - src: /assets/images/photography/…/photo.jpg
+#     alt: "…"
+#     caption: "Tuscany, Italy"
+#     collection: woodlands-and-landscapes
+#     print:
+#       id: tuscany-hills        # required, unique; used in /prints/#id and emails
+#       title: "Morning hills"   # optional, defaults to the caption
+#       sizes:                   # optional, replaces the standard sizes below
+#         - label: "30 × 45 cm"
+#           price: "€ 90"
+#
+# Printable photos appear in the order they have in photos.yml. The frame shows
+# `default` first, unless the URL names another (/prints/#id).
+
+default: early-morning-tuscany-hills
+
+# Standard sizes, grouped by aspect ratio (long side ÷ short side). Each photo
+# is offered the group closest to its own ratio; portrait photos get the same
+# sizes upright. `price` is optional; without prices the page says
+# "Prices on request". The first size is preselected.
+size_sets:
+  - name: "3:2"
+    ratio: 1.5
+    sizes:
+      - label: "20 × 30 cm"
+      - label: "30 × 45 cm"
+      - label: "40 × 60 cm"
+  - name: "4:3"
+    ratio: 1.333
+    sizes:
+      - label: "30 × 40 cm"
+      - label: "45 × 60 cm"
+      - label: "60 × 80 cm"
+  - name: "16:9"
+    ratio: 1.778
+    sizes:
+      - label: "25 × 45 cm"
+      - label: "34 × 60 cm"
+      - label: "45 × 80 cm"
+
+eyebrow: Prints
+title: Prints
+intro: "Selected photographs are available as prints. Prints are made to order from the original files, not from the images shown on this site."
+choose: Choose a photograph
+id_label: Print ID
+size_label: Size
+scale_note: "Shown to scale above a 140 cm sideboard. Frame and mat for illustration."
+on_request: Prices on request.
+how_title: How to order
+how:
+  - "Choose a photograph and a size above, then send the print request by email."
+  - "Add the country the print should be delivered to."
+  - "I'll reply with the total including shipping. Once you confirm, I'll send a payment request and order the print."
+cta: Request a print
+other: "Interested in a photograph from the portfolio that isn't listed here? Write to me and mention which one."

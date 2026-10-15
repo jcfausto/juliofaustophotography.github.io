@@ -1,0 +1,127 @@
+---
+layout: default
+---
+
+{%- assign home = site.data.home -%}
+{%- assign copy = site.data.site -%}
+{%- assign featured_essays = site.essays | where: "featured", true | sort: "date" | reverse -%}
+{%- assign galleries = site.galleries | sort: "order" -%}
+{%- assign notes = site.field_notes | sort: "date" | reverse -%}
+
+<header class="home-feature wrap{% if home.featured_photo.frame %} home-feature--framed{% endif %}">
+  {%- if home.featured_photo.frame %}
+  <div class="home-wall">
+    <figure class="home-feature-photo home-feature-photo--framed">
+      <div class="frame">
+        <div class="frame-mat">
+          <div class="frame-opening">
+            {% include picture.html src=home.featured_photo.src alt=home.featured_photo.alt sizes="(max-width: 1180px) 90vw, 900px" eager=true %}
+          </div>
+        </div>
+      </div>
+      {%- if home.featured_photo.caption %}
+      <figcaption>{{ home.featured_photo.caption | escape }}</figcaption>
+      {%- endif %}
+    </figure>
+    {%- if home.featured_photo.print %}
+    <div class="home-feature-actions">
+      <a class="button button--quiet" href="{{ '/prints/' | relative_url }}#{{ home.featured_photo.print }}">Buy a print <span aria-hidden="true">→</span></a>
+    </div>
+    {%- endif %}
+  </div>
+  {%- else %}
+  <figure class="home-feature-photo">
+    {% include picture.html src=home.featured_photo.src alt=home.featured_photo.alt sizes="(max-width: 1180px) 100vw, 1116px" eager=true %}
+    {%- if home.featured_photo.caption %}
+    <figcaption>{{ home.featured_photo.caption | escape }}</figcaption>
+    {%- endif %}
+  </figure>
+  {%- endif %}
+  <div class="home-intro">
+    <h1>{{ home.title }}</h1>
+    <p>{{ home.intro }}</p>
+  </div>
+</header>
+
+{% if featured_essays.size > 0 %}
+<section id="essays" aria-labelledby="home-essays-title">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">{{ copy.essays.eyebrow }}</div>
+        <h2 class="title" id="home-essays-title">{{ copy.essays.home_title }}</h2>
+      </div>
+      <p class="section-note">
+        {{ copy.essays.home_note }}
+        <a class="section-more" href="{{ '/essays/' | relative_url }}">{{ copy.essays.more }}</a>
+      </p>
+    </div>
+    <div class="essay-card-grid">
+      {% for essay in featured_essays limit: 3 %}
+        {% include essay-card.html essay=essay %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% if galleries.size > 0 %}
+<section id="portfolio" aria-labelledby="home-portfolio-title">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">{{ copy.portfolio.eyebrow }}</div>
+        <h2 class="title" id="home-portfolio-title">{{ copy.portfolio.home_title }}</h2>
+      </div>
+      <p class="section-note">
+        {{ copy.portfolio.home_note }}
+        <a class="section-more" href="{{ '/portfolio/' | relative_url }}">{{ copy.portfolio.more }}</a>
+      </p>
+    </div>
+    <div class="gallery-card-grid">
+      {% for gallery in galleries limit: 3 %}
+        {% include gallery-card.html gallery=gallery sizes="(max-width: 860px) 100vw, 380px" %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% if notes.size > 0 %}
+<section id="field-notes" aria-labelledby="home-notes-title">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">{{ copy.field_notes.eyebrow }}</div>
+        <h2 class="title" id="home-notes-title">{{ copy.field_notes.home_title }}</h2>
+      </div>
+      <p class="section-note">
+        {{ copy.field_notes.home_note }}
+        <a class="section-more" href="{{ '/field-notes/' | relative_url }}">{{ copy.field_notes.more }}</a>
+      </p>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="article-grid">
+      {% for post in notes limit: 3 %}
+        {% include article-card.html post=post %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% if copy.youtube.url %}
+<section id="youtube" aria-labelledby="home-youtube-title">
+  <div class="wrap youtube-block">
+    <div>
+      <div class="eyebrow">{{ copy.youtube.eyebrow }}</div>
+      <h2 class="title" id="home-youtube-title">{{ copy.youtube.title }}</h2>
+    </div>
+    <div>
+      <p>{{ copy.youtube.note }}</p>
+      <a class="section-more" href="{{ copy.youtube.url }}" rel="me noopener">{{ copy.youtube.cta }}</a>
+    </div>
+  </div>
+</section>
+{% endif %}

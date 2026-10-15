@@ -1,0 +1,39 @@
+{%- comment -%}
+  Responsive photograph. Variant data comes from _data/images.yml
+  (scripts/build-image-variants). Unknown sources fall back to a plain <img>.
+
+  src     (required) path under /assets/images/…
+  alt     (required) description of the photograph
+  sizes   sizes attribute, default 100vw
+  eager   true for the primary above-the-fold image
+  class   class for the <img>
+  zoom    true to make the image open in the lightbox
+{%- endcomment -%}
+{%- assign img = site.data.images[include.src] -%}
+{%- assign sizes = include.sizes | default: "100vw" -%}
+{%- if include.eager -%}
+  {%- assign loading = 'loading="eager" fetchpriority="high"' -%}
+{%- else -%}
+  {%- assign loading = 'loading="lazy"' -%}
+{%- endif -%}
+{%- if img -%}
+  {%- assign largest = img.widths | last -%}
+  {%- capture webp_set -%}{%- for w in img.widths -%}{{ img.base | relative_url }}-{{ w }}.webp {{ w }}w{%- unless forloop.last -%}, {% endunless -%}{%- endfor -%}{%- endcapture -%}
+  {%- capture jpg_set -%}{%- for w in img.widths -%}{%- if forloop.last and img.source_is_largest -%}{{ include.src | relative_url }}{%- else -%}{{ img.base | relative_url }}-{{ w }}.jpg{%- endif %} {{ w }}w{%- unless forloop.last -%}, {% endunless -%}{%- endfor -%}{%- endcapture -%}
+  {%- if img.source_is_largest -%}
+    {%- assign full = include.src | relative_url -%}
+  {%- else -%}
+    {%- capture full -%}{{ img.base | relative_url }}-{{ largest }}.jpg{%- endcapture -%}
+  {%- endif -%}
+  {%- if img.widths contains 1200 and largest != 1200 -%}
+    {%- capture fallback -%}{{ img.base | relative_url }}-1200.jpg{%- endcapture -%}
+  {%- else -%}
+    {%- assign fallback = full -%}
+  {%- endif -%}
+<picture>
+  <source type="image/webp" srcset="{{ webp_set }}" sizes="{{ sizes }}">
+  <img src="{{ fallback }}" srcset="{{ jpg_set }}" sizes="{{ sizes }}" width="{{ img.width }}" height="{{ img.height }}" alt="{{ include.alt | escape }}" {{ loading }} decoding="async"{% if include.class %} class="{{ include.class }}"{% endif %}{% if include.zoom %} data-zoom="{{ full }}"{% endif %}>
+</picture>
+{%- else -%}
+<img src="{{ include.src | relative_url }}" alt="{{ include.alt | escape }}" {{ loading }} decoding="async"{% if include.class %} class="{{ include.class }}"{% endif %}{% if include.zoom %} data-zoom="{{ include.src | relative_url }}"{% endif %}>
+{%- endif -%}

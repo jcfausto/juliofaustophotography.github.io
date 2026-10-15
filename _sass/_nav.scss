@@ -1,0 +1,140 @@
+.site-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px var(--gutter);
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.75);
+  border-bottom: 1px solid var(--line);
+}
+
+.mark {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: -.01em;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-transform: uppercase;
+}
+
+.mark .dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--accent-mark);
+  box-shadow: 0 0 0 4px var(--accent-soft);
+  flex-shrink: 0;
+}
+
+.mark-descriptor {
+  font-family: var(--mono);
+  font-weight: 400;
+  font-size: 11px;
+  letter-spacing: .14em;
+  color: var(--paper-dim);
+  padding-left: 10px;
+  border-left: 1px solid var(--line);
+}
+
+@media (max-width: 560px) {
+  .mark {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 10px;
+    row-gap: 2px;
+    font-size: 17px;
+    line-height: 1.1;
+  }
+
+  .mark-descriptor {
+    grid-column: 2;
+    padding-left: 0;
+    border-left: 0;
+    font-size: 10px;
+    letter-spacing: .14em;
+  }
+}
+
+.navlinks {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--mono);
+  font-size: 12.5px;
+}
+
+.navlinks a {
+  padding: 8px 14px;
+  border-radius: 100px;
+  color: var(--paper-dim);
+  transition: all .35s var(--ease);
+  letter-spacing: .02em;
+}
+
+.navlinks a:hover { color: var(--ink); }
+
+.navlinks a.active {
+  color: #fff;
+  background: var(--accent);
+}
+
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+  width: 40px;
+  height: 40px;
+  padding: 10px;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.nav-toggle span {
+  display: block;
+  height: 1.5px;
+  width: 100%;
+  background: var(--ink);
+  transition: transform .3s var(--ease), opacity .3s var(--ease);
+}
+
+.nav-toggle[aria-expanded="true"] span:first-child {
+  transform: translateY(3.75px) rotate(45deg);
+}
+
+.nav-toggle[aria-expanded="true"] span:last-child {
+  transform: translateY(-3.75px) rotate(-45deg);
+}
+
+@media (max-width: 720px) {
+  .nav-toggle { display: flex; }
+
+  .navlinks {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 12px 20px 20px;
+    background: rgba(255, 255, 255, 0.96);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .navlinks.open { display: flex; }
+
+  .navlinks a {
+    padding: 14px 12px;
+    border-radius: 8px;
+  }
+}

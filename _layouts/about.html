@@ -1,0 +1,52 @@
+---
+layout: default
+---
+
+{%- assign about = site.data.site.about -%}
+{%- assign contact = site.data.site.contact -%}
+
+<header class="page-hero">
+  <div class="wrap">
+    <div class="eyebrow">{{ about.eyebrow }}</div>
+    <h1 class="title">{{ about.title }}</h1>
+  </div>
+</header>
+
+<div class="wrap about-page">
+  <div class="about-grid">
+    {%- if about.portrait %}
+    <div class="portrait">
+      <img src="{{ about.portrait | relative_url }}" alt="{{ about.portrait_alt | escape }}" width="681" height="1024" loading="eager" decoding="async">
+    </div>
+    {%- endif %}
+    <div class="bio">
+      {% for paragraph in about.bio %}
+        <p>{{ paragraph }}</p>
+      {% endfor %}
+
+      {{ content }}
+
+      {%- if about.interests %}
+      <h2>Photographic interests</h2>
+      <div class="tags">
+        {% for interest in about.interests %}<span class="tag">{{ interest }}</span>{% endfor %}
+      </div>
+      {%- endif %}
+
+      <h2>Elsewhere</h2>
+      <div class="about-links">
+        <a href="{{ site.data.site.youtube.url }}" rel="me noopener">YouTube</a>
+        {%- for link in contact.links -%}
+          {%- if link.label == "Instagram" %}
+        <a href="{{ link.url }}" rel="me noopener">Instagram</a>
+          {%- endif -%}
+        {%- endfor %}
+        <a href="mailto:{{ contact.email }}">{{ contact.email }}</a>
+      </div>
+
+      {%- if about.professional_url %}
+      <p class="about-aside">{{ about.professional_note }} <a href="{{ about.professional_url }}" rel="me noopener">{{ about.professional_label }}</a>.</p>
+      {%- endif %}
+    </div>
+  </div>
+</div>

@@ -1,0 +1,19 @@
+{%- comment -%}
+  Reads a size label such as "30 × 45 cm" (or "30x45 cm") and sets
+  print_w / print_h in centimetres, oriented like the photograph.
+
+  {% include print-dims.html label=size.label portrait=true %}
+{%- endcomment -%}
+{%- assign dims = include.label | downcase | remove: "cm" | replace: "x", "×" | split: "×" -%}
+{%- assign dim_a = dims[0] | strip | plus: 0 -%}
+{%- assign dim_b = dims[1] | strip | plus: 0 -%}
+{%- if dim_a > dim_b -%}
+  {%- assign dim_long = dim_a -%}{%- assign dim_short = dim_b -%}
+{%- else -%}
+  {%- assign dim_long = dim_b -%}{%- assign dim_short = dim_a -%}
+{%- endif -%}
+{%- if include.portrait -%}
+  {%- assign print_w = dim_short -%}{%- assign print_h = dim_long -%}
+{%- else -%}
+  {%- assign print_w = dim_long -%}{%- assign print_h = dim_short -%}
+{%- endif -%}

@@ -1,0 +1,79 @@
+title: Julio Cesar Fausto Photography
+author: Julio Cesar Fausto
+tagline: Photography as observation.
+description: Photographic essays, portfolio, and field notes by Julio Cesar Fausto — architecture, landscapes, and the natural world.
+url: https://juliofaustophotography.com
+baseurl: ""
+lang: en
+locale: en_US
+
+logo: /assets/images/julio-portrait.png
+image: /assets/images/photography/architectural-and-cityscapes/20260606-Architectural-Photography.jpg
+
+social:
+  name: Julio Cesar Fausto
+  links:
+    - https://www.youtube.com/@jcfausto
+    - https://www.instagram.com/juliofaustophotography/
+    - https://jcfausto.com
+
+collections:
+  galleries:
+    output: true
+    permalink: /portfolio/:name/
+  essays:
+    output: true
+    permalink: /essays/:name/
+  field_notes:
+    output: true
+    permalink: /field-notes/:name/
+
+defaults:
+  - scope:
+      path: ""
+      type: galleries
+    values:
+      layout: gallery
+      facet: photo
+  - scope:
+      path: ""
+      type: essays
+    values:
+      layout: essay
+      language: en
+      facet: photo
+  - scope:
+      path: ""
+      type: field_notes
+    values:
+      layout: field-note
+      language: en
+      facet: photo
+  - scope:
+      path: ""
+    values:
+      layout: default
+      facet: photo
+
+exclude:
+  - Dockerfile
+  - docker-compose.yml
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+  - .ruby-lsp
+  - scripts
+  - docs
+  - _originals
+  - exports
+
+plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-redirect-from
+
+sass:
+  sass_dir: _sass
+  style: compressed
+  sourcemap: never

@@ -1,0 +1,133 @@
+#!/usr/bin/env bash
+# Burn a corner copyright into published photography JPEGs.
+#
+#   ./scripts/watermark-photos            # collections only
+#   ./scripts/watermark-photos --journal  # also field note images
+#   ./scripts/watermark-photos --essays   # also essay images
+#
+# Files already marked (JPEG comment "watermarked") are skipped.
+
+set -euo pipefail
+
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+PHOTO="$ROOT/assets/images/photography"
+TEXT="© Julio Cesar Fausto"
+FLAG="watermarked"
+
+COLLECTIONS=(
+  woodlands-and-landscapes
+  architectural-and-cityscapes
+  nature-and-animal-life
+)
+
+if ! command -v magick >/dev/null 2>&1; then
+  echo "Need ImageMagick (magick) to watermark photos." >&2
+  exit 1
+fi
+
+export FONTCONFIG_CACHE="${TMPDIR:-/tmp}/fontconfig-cache"
+mkdir -p "$FONTCONFIG_CACHE"
+
+include_journal=0
+include_essays=0
+for arg in "$@"; do
+  case "$arg" in
+    --journal) include_journal=1 ;;
+    --essays) include_essays=1 ;;
+    -h|--help)
+      echo "Usage: $0 [--journal] [--essays]"
+      exit 0
+      ;;
+    *)
+      echo "Unknown option: $arg" >&2
+      exit 1
+      ;;
+  esac
+done
+
+already_marked() {
+  local comment
+  comment="$(magick identify -format '%c' "$1" 2>/dev/null || true)"
+  [[ "$comment" == *"$FLAG"* ]]
+}
+
+watermark() {
+  local src="$1"
+  local w h short pointsize pad tmp
+
+  w="$(magick identify -format '%w' "$src")"
+  h="$(magick identify -format '%h' "$src")"
+  if [[ "$w" -lt "$h" ]]; then short="$w"; else short="$h"; fi
+
+  pointsize="$(python3 -c "print(max(14, int($w * 0.022)))")"
+  pad="$(python3 -c "print(max(10, int($short * 0.015)))")"
+
+  tmp="${src}.watermark-tmp.jpg"
+  magick "$src" \
+    -gravity southeast \
+    -pointsize "$pointsize" \
+    -fill "rgba(0,0,0,0.40)" \
+    -annotate "+$((pad + 1))+$((pad + 1))" "$TEXT" \
+    -fill "rgba(255,255,255,0.78)" \
+    -annotate "+${pad}+${pad}" "$TEXT" \
+    -set comment "$FLAG" \
+    -quality 88 \
+    "$tmp"
+  mv "$tmp" "$src"
+}
+
+collect_files() {
+  local dir="$1"
+  [[ -d "$dir" ]] || return 0
+  find "$dir" -type f \( -iname '*.jpg' -o -iname '*.jpeg' \) | sort
+}
+
+files=()
+for slug in "${COLLECTIONS[@]}"; do
+  while IFS= read -r f; do
+    [[ -n "$f" ]] && files+=("$f")
+  done < <(collect_files "$PHOTO/$slug")
+done
+
+if [[ "$include_journal" -eq 1 ]]; then
+  while IFS= read -r f; do
+    [[ -n "$f" ]] && files+=("$f")
+  done < <(collect_files "$PHOTO/journal")
+fi
+
+if [[ "$include_essays" -eq 1 ]]; then
+  while IFS= read -r f; do
+    [[ -n "$f" ]] && files+=("$f")
+  done < <(collect_files "$PHOTO/essays")
+fi
+
+if [[ "${#files[@]}" -eq 0 ]]; then
+  echo "No JPEGs found under $PHOTO"
+  exit 0
+fi
+
+echo "Watermarking ${#files[@]} photo(s)…"
+marked=0
+skipped=0
+failed=0
+
+for src in "${files[@]}"; do
+  rel="${src#"$ROOT/"}"
+  if already_marked "$src"; then
+    echo "  skip  $rel"
+    skipped=$((skipped + 1))
+    continue
+  fi
+  if watermark "$src"; then
+    echo "  mark  $rel"
+    marked=$((marked + 1))
+  else
+    echo "  fail  $rel" >&2
+    failed=$((failed + 1))
+  fi
+done
+
+echo "Done. marked $marked, skipped $skipped, failed $failed."
+if [[ "$failed" -gt 0 ]]; then
+  exit 1
+fi

@@ -1,0 +1,26 @@
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#ffffff">
+  {% if page.noindex or page.layout == '404' %}
+    <meta name="robots" content="noindex, follow, noai, noimageai">
+  {% else %}
+    <meta name="robots" content="index, follow, noai, noimageai">
+  {% endif %}
+  {% seo %}
+  {% for profile in site.social.links %}
+    <link rel="me" href="{{ profile }}">
+  {% endfor %}
+  <link rel="icon" type="image/x-icon" href="{{ '/assets/favicon.ico' | relative_url }}">
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ '/assets/apple-touch-icon.png' | relative_url }}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{{ '/assets/favicon-32x32.png' | relative_url }}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{{ '/assets/favicon-16x16.png' | relative_url }}">
+  <link rel="manifest" href="{{ '/assets/site.webmanifest' | relative_url }}">
+  <link rel="alternate" type="application/rss+xml" title="{{ site.title }} — Field Notes" href="{{ '/rss.xml' | relative_url }}">
+  <link rel="alternate" type="application/atom+xml" title="{{ site.title }} — Field Notes" href="{{ '/field-notes/atom.xml' | relative_url }}">
+  <link rel="alternate" type="application/atom+xml" title="{{ site.title }} — Essays" href="{{ '/essays/atom.xml' | relative_url }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,500;0,8..60,600;0,8..60,700;0,8..60,900;1,8..60,500&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
+</head>

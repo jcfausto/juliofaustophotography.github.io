@@ -1,0 +1,28 @@
+{%- assign gallery = include.gallery -%}
+{%- assign photos = site.data.photos | where: "collection", gallery.slug -%}
+{%- assign cover_photo = site.data.photos | where: "src", gallery.cover | first -%}
+{%- assign cover_alt = gallery.cover_alt | default: cover_photo.alt -%}
+{%- assign preview_count = 0 -%}
+<a class="gallery-row{% if include.flip %} gallery-row--flip{% endif %}" href="{{ gallery.url | relative_url }}">
+  <div class="gallery-row-cover">
+    {%- if gallery.cover %}
+    {% include picture.html src=gallery.cover alt=cover_alt sizes="(max-width: 860px) 100vw, 680px" %}
+    {%- endif %}
+  </div>
+  <div class="gallery-row-meta">
+    <span class="year-heading">{% if photos.size == 1 %}1 photograph{% else %}{{ photos.size }} photographs{% endif %}</span>
+    <h2>{{ gallery.title | escape }}</h2>
+    {%- if gallery.description %}
+    <p>{{ gallery.description | escape }}</p>
+    {%- endif %}
+    <div class="gallery-row-previews" aria-hidden="true">
+      {%- for photo in photos -%}
+        {%- if photo.src == gallery.cover -%}{%- continue -%}{%- endif -%}
+        {%- if preview_count >= 3 -%}{%- break -%}{%- endif -%}
+        {%- assign preview_count = preview_count | plus: 1 %}
+      {% include picture.html src=photo.src alt="" sizes="160px" %}
+      {%- endfor %}
+    </div>
+    <span class="gallery-row-cta">View gallery <span aria-hidden="true">→</span></span>
+  </div>
+</a>

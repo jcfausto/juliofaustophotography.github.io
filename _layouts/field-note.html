@@ -1,0 +1,53 @@
+---
+layout: default
+---
+
+{%- assign body_has_cover = false -%}
+{%- if page.image -%}
+  {%- assign cover_info = site.data.images[page.image] -%}
+  {%- if content contains page.image -%}
+    {%- assign body_has_cover = true -%}
+  {%- elsif cover_info and content contains cover_info.base -%}
+    {%- assign body_has_cover = true -%}
+  {%- endif -%}
+{%- endif -%}
+
+<article class="post wrap">
+  <header class="post-head">
+    <div class="eyebrow">
+      {{ site.data.site.field_notes.eyebrow }}
+      {%- if page.category %} · {{ page.category | escape }}{% endif %}
+    </div>
+    <h1 class="title">{{ page.title | escape }}</h1>
+    <div class="meta-line post-meta">
+      <span><time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%-d %B %Y" }}</time></span>
+      {%- if page.language and page.language != "en" %}<span>{{ page.language | upcase }}</span>{% endif -%}
+    </div>
+  </header>
+
+  {%- if page.image and page.show_cover != false and body_has_cover == false %}
+  <figure class="note-cover">
+    {% include picture.html src=page.image alt=page.image_alt sizes="(max-width: 760px) 100vw, 696px" eager=true zoom=true %}
+  </figure>
+  {%- endif %}
+
+  <div class="prose">
+    {{ content }}
+  </div>
+
+  {%- if page.related %}
+  <aside class="note-related" aria-labelledby="note-related-title">
+    <h2 id="note-related-title">Related</h2>
+    <ul>
+      {% for item in page.related %}
+        <li><a href="{{ item.url | relative_url }}">{{ item.title | escape }}</a></li>
+      {% endfor %}
+    </ul>
+  </aside>
+  {%- endif %}
+
+  <nav class="back-links" aria-label="Field notes">
+    <a href="{{ '/field-notes/' | relative_url }}">← All field notes</a>
+    <a href="{{ '/portfolio/' | relative_url }}">Portfolio</a>
+  </nav>
+</article>

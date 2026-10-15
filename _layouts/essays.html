@@ -1,0 +1,29 @@
+---
+layout: default
+---
+
+{%- assign copy = site.data.site.essays -%}
+{%- assign by_date = site.essays | sort: "date" | reverse -%}
+{%- assign featured = by_date | where: "featured", true -%}
+{%- assign rest = by_date | where_exp: "e", "e.featured != true" -%}
+{%- assign essays = featured | concat: rest -%}
+
+<header class="page-hero">
+  <div class="wrap">
+    <div class="eyebrow">{{ copy.eyebrow }}</div>
+    <h1 class="title">{{ copy.title }}</h1>
+    <p class="hero-sub">{{ copy.intro }}</p>
+  </div>
+</header>
+
+<div class="wrap gallery-page">
+  {% if essays.size > 0 %}
+    <div class="essay-card-grid">
+      {% for essay in essays %}
+        {% include essay-card.html essay=essay heading="h2" %}
+      {% endfor %}
+    </div>
+  {% else %}
+    <p class="empty-note">{{ copy.empty }}</p>
+  {% endif %}
+</div>
