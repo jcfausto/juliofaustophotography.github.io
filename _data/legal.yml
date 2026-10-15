@@ -1,0 +1,10 @@
+# Details for /impressum/ and /privacy/.
+
+name: Julio Cesar Fausto
+address: []          # postal address, one line per item, e.g.
+                     # ["Street 1", "10115 Berlin", "Germany"]; required by
+                     # § 5 DDG before selling prints
+email: jcfausto@gmail.com
+phone: ""            # optional second quick way to reach you
+vat_id: ""           # USt-IdNr., only if you have one
+updated: 2026-10-15  # "Last updated" date of the privacy policy

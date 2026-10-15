@@ -1,0 +1,20 @@
+---
+layout: default
+---
+
+<article class="legal-page">
+  <header class="page-hero">
+    <div class="wrap">
+      <h1 class="title">{{ page.title | escape }}</h1>
+      {%- if page.subtitle %}
+      <p class="hero-sub">{{ page.subtitle | escape }}</p>
+      {%- endif %}
+    </div>
+  </header>
+
+  <div class="wrap">
+    <div class="prose legal-body">
+      {{ content }}
+    </div>
+  </div>
+</article>

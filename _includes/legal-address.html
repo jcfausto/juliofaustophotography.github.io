@@ -1,0 +1,8 @@
+{%- assign legal = site.data.legal -%}
+{%- assign address = legal.address | compact -%}
+<p class="legal-address">
+  {{ legal.name | escape }}
+  {%- for line in address %}<br>
+  {{ line | escape }}
+  {%- endfor %}
+</p>

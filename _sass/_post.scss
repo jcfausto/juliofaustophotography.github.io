@@ -167,3 +167,19 @@
 .highlight .c, .highlight .c1, .highlight .cm { color: #8b8894; }
 .highlight .n, .highlight .na, .highlight .nx { color: #82aaff; }
 .highlight .mi, .highlight .mf { color: #f78c6c; }
+
+// Legal pages ----------------------------------------------------------------
+
+.legal-body {
+  max-width: var(--w-text);
+  padding-bottom: 96px;
+}
+
+.legal-body h2 { font-size: 22px; }
+
+.legal-body mark {
+  background: var(--accent-soft);
+  color: var(--accent);
+  padding: 2px 6px;
+  border-radius: 4px;
+}

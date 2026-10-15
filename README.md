@@ -332,7 +332,17 @@ an email whose subject and body include the title and print ID.
 To show "Buy a print" under the framed homepage photo, set
 `featured_photo.print` in `_data/home.yml` to a print ID.
 
-Before taking orders, the site needs an Impressum and a privacy policy.
+## Impressum and privacy policy
+
+`/impressum/` and `/privacy/` take their details from `_data/legal.yml`
+(name, postal address, email, optional phone and VAT ID). Both are linked from
+the footer. The address is currently empty; add it before selling prints, as
+§ 5 DDG requires a postal address in the Impressum. Update the
+privacy policy when the site starts using a new service (analytics, a shop,
+embeds), and change `updated` in `_data/legal.yml` when you do.
+
+Fonts are self-hosted in `assets/fonts/` (`_sass/_fonts.scss`), so no visitor
+data goes to Google Fonts.
 
 ## License
 
