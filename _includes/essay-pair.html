@@ -1,28 +1,33 @@
 {%- comment -%}
-  Two photographs side by side (stacked on small screens).
+  Two photographs side by side at the same height (stacked on small screens).
 
   {% include essay-pair.html
      src1="…" alt1="…" caption1="…"
      src2="…" alt2="…" caption2="…"
-     caption="Optional shared caption" %}
+     caption="Optional shared caption" display="text" %}
+
+  display: wide (default, gallery width) · text (text-column width)
 {%- endcomment -%}
-{%- assign sizes = "(max-width: 720px) 100vw, 550px" -%}
-<figure class="essay-pair">
+{%- assign pair_display = include.display | default: "wide" -%}
+{%- assign sizes = "(max-width: 720px) 100vw, 760px" -%}
+{%- assign img1 = site.data.images[include.src1] -%}
+{%- assign img2 = site.data.images[include.src2] -%}
+<figure class="essay-pair essay-pair--{{ pair_display }}">
   <div class="essay-pair-items">
-    <figure>
+    <figure{% if img1 %} style="flex-grow: {{ img1.width | times: 1.0 | divided_by: img1.height | round: 4 }}"{% endif %}>
       {% include picture.html src=include.src1 alt=include.alt1 sizes=sizes zoom=true %}
-      {%- if include.caption1 %}
-      <figcaption>{{ include.caption1 }}</figcaption>
+      {%- if include.caption1 or page.figure_numbers %}
+      <figcaption>{{ include.caption1 | markdownify | remove: '<p>' | remove: '</p>' | strip }}</figcaption>
       {%- endif %}
     </figure>
-    <figure>
+    <figure{% if img2 %} style="flex-grow: {{ img2.width | times: 1.0 | divided_by: img2.height | round: 4 }}"{% endif %}>
       {% include picture.html src=include.src2 alt=include.alt2 sizes=sizes zoom=true %}
-      {%- if include.caption2 %}
-      <figcaption>{{ include.caption2 }}</figcaption>
+      {%- if include.caption2 or page.figure_numbers %}
+      <figcaption>{{ include.caption2 | markdownify | remove: '<p>' | remove: '</p>' | strip }}</figcaption>
       {%- endif %}
     </figure>
   </div>
   {%- if include.caption %}
-  <figcaption>{{ include.caption }}</figcaption>
+  <figcaption>{{ include.caption | markdownify | remove: '<p>' | remove: '</p>' | strip }}</figcaption>
   {%- endif %}
 </figure>

@@ -1,0 +1,62 @@
+#!/usr/bin/env ruby
+# Build the small square location map for an essay from OpenStreetMap tiles.
+# The map is centred on the coordinates; the layout draws the pin on top.
+#
+#   ./scripts/build-essay-map <essay-slug> <lat> <lon> [zoom]
+#   ./scripts/build-essay-map haus-der-kulturen-der-welt 52.5187884 13.3648356
+#
+# Writes assets/images/maps/<essay-slug>.png. Run it once per essay: the
+# image is committed, so visitors never load anything from OpenStreetMap.
+# Requires ImageMagick (magick).
+
+require "fileutils"
+require "net/http"
+require "tmpdir"
+
+TILE = 256
+SIZE = 320
+USER_AGENT = "juliofaustophotography.com essay map builder (jcfausto@gmail.com)"
+
+slug, lat, lon, zoom = ARGV
+abort "usage: #{$PROGRAM_NAME} <essay-slug> <lat> <lon> [zoom]" unless slug && lat && lon
+lat = Float(lat)
+lon = Float(lon)
+zoom = Integer(zoom || 15)
+
+scale = TILE * 2**zoom
+rad = lat * Math::PI / 180
+x = (lon + 180) / 360 * scale
+y = (1 - Math.log(Math.tan(rad) + 1 / Math.cos(rad)) / Math::PI) / 2 * scale
+
+left = (x - SIZE / 2.0).floor
+top = (y - SIZE / 2.0).floor
+cols = ((left / TILE)..((left + SIZE - 1) / TILE)).to_a
+rows = ((top / TILE)..((top + SIZE - 1) / TILE)).to_a
+
+root = File.expand_path("..", __dir__)
+out = File.join(root, "assets/images/maps/#{slug}.png")
+FileUtils.mkdir_p(File.dirname(out))
+
+Dir.mktmpdir do |dir|
+  row_files = rows.map do |ty|
+    tiles = cols.map do |tx|
+      path = File.join(dir, "#{tx}-#{ty}.png")
+      uri = URI("https://tile.openstreetmap.org/#{zoom}/#{tx}/#{ty}.png")
+      res = Net::HTTP.get_response(uri, { "User-Agent" => USER_AGENT })
+      abort "tile #{uri}: HTTP #{res.code}" unless res.is_a?(Net::HTTPSuccess)
+      File.binwrite(path, res.body)
+      path
+    end
+    row = File.join(dir, "row-#{ty}.png")
+    system("magick", *tiles, "+append", row, exception: true)
+    row
+  end
+
+  crop = "#{SIZE}x#{SIZE}+#{left - cols.first * TILE}+#{top - rows.first * TILE}"
+  system("magick", *row_files, "-append", "-crop", crop, "+repage",
+         "-modulate", "100,45", "-strip", "PNG8:#{out}", exception: true)
+end
+
+puts "Wrote #{out.delete_prefix("#{root}/")}"
+puts "Add to the essay front matter:"
+puts "map:\n  lat: #{lat}\n  lon: #{lon}\n  label: \"…\""

@@ -6,6 +6,137 @@ layout: default
 {%- if page.gallery -%}
   {%- assign related_gallery = site.galleries | where: "slug", page.gallery | first -%}
 {%- endif -%}
+{%- if page.format == "magazine" -%}
+{%- assign chapters = content | split: '<h2 id="' -%}
+{%- assign words = content | strip_html | number_of_words -%}
+{%- assign minutes = words | plus: 199 | divided_by: 200 -%}
+{%- capture facts_html -%}
+  {%- for fact in page.facts -%}
+    {%- if fact.value and fact.value != "" -%}
+    <div><dt>{{ fact.label | escape }}</dt><dd>{{ fact.value | escape }}</dd></div>
+    {%- endif -%}
+  {%- endfor -%}
+{%- endcapture -%}
+
+<article class="essay essay--magazine{% if page.numbered %} essay--numbered{% endif %}{% if page.figure_numbers %} essay--figures{% endif %}{% if page.light %} essay--light{% endif %}">
+  <header class="essay-spread">
+    {%- if page.cover %}
+    <figure class="essay-cover">
+      {% include picture.html src=page.cover alt=page.cover_alt sizes="100vw" eager=true zoom=true %}
+      {%- if page.cover_caption %}
+      <figcaption class="photo-caption">{{ page.cover_caption | markdownify | remove: '<p>' | remove: '</p>' | strip }}</figcaption>
+      {%- endif %}
+    </figure>
+    {%- endif %}
+    <div class="essay-titles">
+      <div class="essay-titles-main">
+        <div class="eyebrow">{{ site.data.site.essays.eyebrow }}{% if page.subject %} · {{ page.subject | escape }}{% endif %}{% if page.status == "draft" %} · Draft{% endif %}</div>
+        <h1 class="title">{{ page.title | escape }}</h1>
+      </div>
+      <div class="essay-deck">
+        {%- if page.subtitle and page.subtitle != "" %}
+        <p class="essay-subtitle">{{ page.subtitle | escape }}</p>
+        {%- endif %}
+        <div class="meta-line">
+          <span>By {{ site.author }}</span>
+          {%- if page.location %}<span>{{ page.location | escape }}</span>{% endif -%}
+          <span><time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%-d %B %Y" }}</time></span>
+          <span>{{ minutes }} min read</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="essay-main">
+    {%- if page.contents and chapters.size > 2 %}
+    <nav class="essay-toc" aria-labelledby="essay-toc-title" data-essay-toc>
+      <div class="essay-toc-inner">
+        <h2 class="essay-toc-title" id="essay-toc-title">In this essay</h2>
+        <ol>
+          {%- for chunk in chapters offset: 1 %}
+          {%- assign id = chunk | split: '"' | first -%}
+          {%- assign heading = chunk | split: '</h2>' | first | remove_first: id | remove_first: '">' | strip_html %}
+          <li><a href="#{{ id }}">{% if page.numbered %}<span>{% if forloop.index < 10 %}0{% endif %}{{ forloop.index }}</span> {% endif %}{{ heading }}</a></li>
+          {%- endfor %}
+        </ol>
+      </div>
+    </nav>
+    {%- endif %}
+
+    {%- capture essay_about %}
+    {%- if page.map %}
+    {%- capture map_path %}/assets/images/maps/{{ page.slug }}.png{% endcapture %}
+    {%- assign map_image = site.static_files | where: "path", map_path | first %}
+    {%- if map_image %}
+    {%- capture map_url %}https://www.openstreetmap.org/?mlat={{ page.map.lat }}&mlon={{ page.map.lon }}#map=16/{{ page.map.lat }}/{{ page.map.lon }}{% endcapture %}
+    <aside class="essay-map" aria-label="Location">
+      <a class="essay-map-image" href="{{ map_url | escape }}" target="_blank" rel="noopener">
+        <img src="{{ map_path | relative_url }}" width="320" height="320" alt="Map showing the location of {{ page.map.label | default: page.title | escape }}" loading="lazy" decoding="async">
+        <span class="essay-map-pin" aria-hidden="true"></span>
+      </a>
+      <p class="essay-map-label">
+        {{ page.map.label | default: page.title | escape }}<br>
+        <a href="{{ map_url | escape }}" target="_blank" rel="noopener">Open map ↗</a>
+      </p>
+      <p class="essay-map-credit">© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors</p>
+    </aside>
+    {%- endif %}
+    {%- endif %}
+    {%- endcapture %}
+
+    {%- capture essay_facts %}
+    {%- if facts_html != "" %}
+    <aside class="essay-facts" aria-labelledby="essay-facts-title">
+      <h2 class="essay-facts-title" id="essay-facts-title">At a glance</h2>
+      <dl>{{ facts_html }}</dl>
+    </aside>
+    {%- endif %}
+    {%- endcapture %}
+
+    {%- unless page.light %}{{ essay_about }}{% endunless %}
+
+    {%- if page.intro and page.intro != "" %}
+    <p class="essay-lede">{{ page.intro | escape }}</p>
+    {%- endif %}
+
+    {%- unless page.light %}{{ essay_facts }}{% endunless %}
+
+    <div class="essay-body prose">
+      {{ content }}
+    </div>
+
+    {%- if page.light %}
+    {%- assign essay_map = essay_about | strip %}
+    {%- if facts_html != "" or essay_map != "" %}
+    <div class="essay-end">
+      <aside class="essay-facts essay-facts--card" aria-labelledby="essay-facts-title">
+        <div class="essay-facts-text">
+          <h2 class="essay-facts-title" id="essay-facts-title">At a glance</h2>
+          {%- if facts_html != "" %}
+          <dl>{{ facts_html }}</dl>
+          {%- endif %}
+        </div>
+        {{ essay_map }}
+      </aside>
+    </div>
+    {%- endif %}
+    {%- endif %}
+
+    {%- if page.sources.size > 0 %}
+    <section class="essay-sources" aria-labelledby="essay-sources-title">
+      <h2 id="essay-sources-title">Sources and further reading</h2>
+      <ol>
+        {%- for source in page.sources %}
+        <li>
+          {%- if source.url %}<a href="{{ source.url }}">{{ source.title | escape }}</a>{% else %}{{ source.title | escape }}{% endif -%}
+          {%- if source.note %}. {{ source.note | escape }}{% endif -%}
+        </li>
+        {%- endfor %}
+      </ol>
+    </section>
+    {%- endif %}
+  </div>
+{%- else -%}
 
 <article class="essay">
   <header class="essay-head">
@@ -36,6 +167,7 @@ layout: default
   <div class="essay-body prose">
     {{ content }}
   </div>
+{%- endif %}
 
   {%- if page.video_url %}
   <section class="essay-video" aria-labelledby="essay-video-title">

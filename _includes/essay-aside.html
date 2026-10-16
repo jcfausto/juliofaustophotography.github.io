@@ -1,0 +1,21 @@
+{%- comment -%}
+  A photograph beside the text, which wraps around it. Stacks above the text
+  on small screens.
+
+  {% include essay-aside.html src="…" alt="…" caption="…" side="left" size="large" %}
+
+  side: right (default) · left
+  size: small · medium (default) · large (reaches into the margin on wide screens)
+{%- endcomment -%}
+{%- assign aside_size = include.size | default: "medium" -%}
+{%- if aside_size == "large" -%}
+  {%- assign aside_sizes = "(max-width: 720px) 100vw, 600px" -%}
+{%- else -%}
+  {%- assign aside_sizes = "(max-width: 720px) 100vw, 340px" -%}
+{%- endif -%}
+<figure class="essay-aside essay-aside--{{ include.side | default: 'right' }} essay-aside--{{ aside_size }}">
+  {% include picture.html src=include.src alt=include.alt sizes=aside_sizes zoom=true %}
+  {%- if include.caption or page.figure_numbers %}
+  <figcaption>{{ include.caption | markdownify | remove: '<p>' | remove: '</p>' | strip }}</figcaption>
+  {%- endif %}
+</figure>

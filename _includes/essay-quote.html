@@ -1,0 +1,20 @@
+{%- comment -%}
+  A pull quote: a sentence from the essay, set large between paragraphs.
+
+  {% include essay-quote.html text="…" cite="Optional source" %}
+
+  placeholder=true shows the quote only with `jekyll serve`, greyed out like
+  the filler text of essay-placeholder.html.
+{%- endcomment -%}
+{%- if include.placeholder -%}
+  {%- if jekyll.environment == "development" -%}
+<blockquote class="essay-quote is-placeholder" role="note"><p>{{ include.text }}</p></blockquote>
+  {%- endif -%}
+{%- else -%}
+<blockquote class="essay-quote">
+  <p>{{ include.text }}</p>
+  {%- if include.cite %}
+  <cite>{{ include.cite }}</cite>
+  {%- endif %}
+</blockquote>
+{%- endif -%}

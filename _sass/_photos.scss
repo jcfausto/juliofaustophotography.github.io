@@ -200,6 +200,15 @@
   text-align: center;
 }
 
+.photo-caption a,
+.essay-photo figcaption a,
+.essay-pair figcaption a,
+.essay-aside figcaption a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 @media (max-width: 720px) {
   .gallery-sequence {
     grid-template-columns: 1fr;

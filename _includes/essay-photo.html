@@ -14,7 +14,7 @@
 {%- endcase -%}
 <figure class="essay-photo essay-photo--{{ display }}">
   {% include picture.html src=include.src alt=include.alt sizes=sizes zoom=true eager=include.eager %}
-  {%- if include.caption %}
-  <figcaption>{{ include.caption }}</figcaption>
+  {%- if include.caption or page.figure_numbers %}
+  <figcaption>{{ include.caption | markdownify | remove: '<p>' | remove: '</p>' | strip }}</figcaption>
   {%- endif %}
 </figure>

@@ -160,6 +160,103 @@ them are required. Place photographs with these includes:
 `wide` (gallery width), or `full` (edge to edge). Every photograph opens in the
 lightbox.
 
+**Magazine format.** For an essay that is as much text as photographs, add
+`format: magazine` to the front matter. The page then opens with the cover edge
+to edge, a large title, and a byline with reading time. Each `##` heading
+becomes a numbered section and an entry in the "In this essay" contents list
+(in the left margin on wide screens), and photographs get figure numbers
+(Fig. 1, Fig. 2, …) so the text can refer to them. Extra front matter:
+
+```yaml
+format: magazine
+contents: true           # optional "In this essay" list of the ## headings
+numbered: true           # optional: number the ## headings (01, 02, …)
+figure_numbers: true     # optional: label photographs Fig. 1, Fig. 2, …
+light: true              # optional: lighter type, more space; facts and map in one card at the end
+intro: "Optional lede paragraph, set large under the title."
+facts:                   # optional "At a glance" box
+  - label: Architect
+    value: "…"
+sources:                 # optional "Sources and further reading", after the text
+  - title: "Book or article title"
+    url: https://…       # optional
+    note: "Optional note"
+```
+
+The body text is set in the serif typeface, and the first paragraph opens with
+a drop cap. On wide screens the text column lines up with the title, and a side
+column on the right holds the map, large photographs beside the text, and the
+captions of text-width photographs. Mix the photograph layouts freely:
+
+```liquid
+{% include essay-photo.html src="…" alt="…" display="full" %}   edge to edge
+{% include essay-photo.html src="…" alt="…" display="wide" %}   gallery width
+{% include essay-photo.html src="…" alt="…" %}                  text-column width
+{% include essay-pair.html src1="…" alt1="…" src2="…" alt2="…" %}   side by side
+{% include essay-aside.html src="…" alt="…" side="left" size="large" %}
+{% include essay-quote.html text="A sentence from the essay, set large." %}
+```
+
+- `essay-pair` shows both photographs at the same height. It is gallery width
+  by default; add `display="text"` to keep it to the text column.
+- `essay-aside` puts a photograph beside the text, which wraps around it.
+  `side` is `right` (default) or `left`; `size` is `small`, `medium` (default),
+  or `large`, which reaches into the margin on wide screens.
+- `essay-quote` is a pull quote.
+- Every photograph takes an optional `caption="…"` (`caption1`/`caption2` on a
+  pair), shown under it after the figure number. Captions accept Markdown, such
+  as `*italics*` and `[links](https://…)`.
+
+**Location map.** A small square map with a pin can sit beside the opening
+section (in the right margin on wide screens). Build the image once from
+OpenStreetMap, then add the coordinates to the front matter:
+
+```sh
+./scripts/build-essay-map <essay-slug> <lat> <lon> [zoom]   # zoom 15 by default
+```
+
+```yaml
+map:
+  lat: 52.5187884
+  lon: 13.3648356
+  label: "Haus der Kulturen der Welt"
+```
+
+The image is saved as `assets/images/maps/<essay-slug>.png` and served from
+this site, so visitors load nothing from OpenStreetMap; the map links out to
+openstreetmap.org. If the image is missing, the map is left out.
+
+Headings are optional; to separate passages without one, put `* * *` on its
+own line for a short ochre scene break.
+
+To set a paragraph in two columns across the full text width, put
+`{: .essay-columns}` on the line directly below it (no blank line between).
+For several paragraphs in a row, wrap them in one block instead, so the text
+flows from the first column into the second:
+
+```markdown
+<div class="essay-columns" markdown="1">
+
+First paragraph.
+
+Second paragraph.
+
+</div>
+```
+
+Keep paragraphs that sit beside an aside photo (or the map, at the top) as
+normal paragraphs. Columns only apply on wide screens; on smaller ones the
+text reads as normal paragraphs.
+
+To hold the place of text you haven't written yet, use filler paragraphs, and
+leave yourself notes. Both appear only in `jekyll serve` and are left out of
+production builds:
+
+```liquid
+{% include essay-placeholder.html paragraphs=2 %}
+{% include essay-note.html text="Say why this view matters." %}
+```
+
 Essay images go in `assets/images/photography/essays/<slug>/`. Run
 `./scripts/watermark-photos --essays`, then `./scripts/build-image-variants`.
 

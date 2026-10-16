@@ -86,10 +86,39 @@ document.querySelectorAll('a[href*="#"]:not([data-print-thumb])').forEach((link)
   if (!target) return;
   link.addEventListener("click", (e) => {
     e.preventDefault();
-    window.scrollTo({ top: target.offsetTop - 70, behavior: "smooth" });
+    window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - 90, behavior: "smooth" });
     history.pushState(null, "", url.hash);
   });
 });
+
+// Essay contents: mark the section being read.
+const essayToc = document.querySelector("[data-essay-toc]");
+if (essayToc) {
+  const tocLinks = Array.from(essayToc.querySelectorAll("a"));
+  const headings = tocLinks.map((link) => document.getElementById(decodeURIComponent(link.hash.slice(1))));
+  let queued = false;
+
+  const update = () => {
+    queued = false;
+    let current = -1;
+    headings.forEach((heading, i) => {
+      if (heading && heading.getBoundingClientRect().top < window.innerHeight * 0.4) current = i;
+    });
+    tocLinks.forEach((link, i) => {
+      if (i === current) link.setAttribute("aria-current", "location");
+      else link.removeAttribute("aria-current");
+    });
+  };
+
+  const queue = () => {
+    if (queued) return;
+    queued = true;
+    requestAnimationFrame(update);
+  };
+  window.addEventListener("scroll", queue, { passive: true });
+  window.addEventListener("resize", queue);
+  update();
+}
 
 // Lightbox: every image with data-zoom, plus inline images in prose.
 const lightbox = document.getElementById("lightbox");

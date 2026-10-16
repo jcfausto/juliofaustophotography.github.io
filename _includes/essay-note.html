@@ -1,0 +1,9 @@
+{%- comment -%}
+  A note to yourself while writing. Shown only with `jekyll serve`;
+  production builds leave it out.
+
+  {% include essay-note.html text="Say why this view matters." %}
+{%- endcomment -%}
+{%- if jekyll.environment == "development" -%}
+<aside class="essay-note" role="note"><span class="essay-note-label">Note</span> {{ include.text | markdownify | remove: '<p>' | remove: '</p>' | strip }}</aside>
+{%- endif -%}
