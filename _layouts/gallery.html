@@ -3,13 +3,10 @@ layout: default
 ---
 
 {%- comment -%}
-  Photographs keep their natural aspect ratio and the order in _data/photos.yml.
-  Layout per photo (unless the photo sets display: half | wide | full):
-  landscape → wide; two consecutive portraits → a pair of halves;
-  a portrait without a portrait neighbour → solo (centred, narrower).
+  Square tiles in the order of _data/photos.yml. Tiles crop the photograph;
+  the lightbox shows it uncropped.
 {%- endcomment -%}
 {%- assign photos = site.data.photos | where: "collection", page.slug -%}
-{%- assign paired = false -%}
 
 <header class="page-hero">
   <div class="wrap">
@@ -25,36 +22,10 @@ layout: default
 </header>
 
 <div class="wrap gallery-page">
-  <div class="gallery-sequence">
-    {%- for photo in photos -%}
-      {%- assign info = site.data.images[photo.src] -%}
-      {%- assign display = photo.display -%}
-      {%- unless display -%}
-        {%- if info.orientation == "portrait" -%}
-          {%- assign next = photos[forloop.index] -%}
-          {%- assign next_info = site.data.images[next.src] -%}
-          {%- if paired -%}
-            {%- assign display = "half" -%}
-            {%- assign paired = false -%}
-          {%- elsif next and next.display == nil and next_info.orientation == "portrait" -%}
-            {%- assign display = "half" -%}
-            {%- assign paired = true -%}
-          {%- else -%}
-            {%- assign display = "solo" -%}
-          {%- endif -%}
-        {%- else -%}
-          {%- assign display = "wide" -%}
-          {%- assign paired = false -%}
-        {%- endif -%}
-      {%- endunless -%}
-      {%- case display -%}
-        {%- when "half" -%}{%- assign sizes = "(max-width: 720px) 100vw, 542px" -%}
-        {%- when "solo" -%}{%- assign sizes = "(max-width: 720px) 100vw, 620px" -%}
-        {%- when "full" -%}{%- assign sizes = "100vw" -%}
-        {%- else -%}{%- assign sizes = "(max-width: 1180px) 100vw, 1116px" -%}
-      {%- endcase %}
-    <figure class="gallery-photo gallery-photo--{{ display }}">
-      {% include picture.html src=photo.src alt=photo.alt sizes=sizes zoom=true eager=forloop.first %}
+  <div class="gallery-grid">
+    {%- for photo in photos %}
+    <figure class="gallery-tile">
+      {% include picture.html src=photo.src alt=photo.alt sizes="(max-width: 720px) 50vw, 300px" zoom=true eager=forloop.first %}
       {%- if photo.caption or photo.location %}
       <figcaption>{{ photo.caption | escape }}{% if photo.location and photo.location != photo.caption %}{% if photo.caption %} · {% endif %}{{ photo.location | escape }}{% endif %}</figcaption>
       {%- endif %}

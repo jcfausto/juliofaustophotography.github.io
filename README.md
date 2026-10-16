@@ -73,16 +73,14 @@ docker compose up
    ```yaml
    - src: /assets/images/photography/woodlands-and-landscapes/the-file.jpg
      alt: "Fog between rolling hills at sunrise"   # required: describe the photograph
-     caption: "Tuscany, Italy"                    # optional, shown under the photo
+     caption: "Tuscany, Italy"                    # optional, shown on hover and in the lightbox
      collection: woodlands-and-landscapes
      # optional:
      # location: "Val d'Orcia"                    # appended to the caption
-     # display: wide                              # half | wide | full | solo
    ```
 
-   By default, landscapes span the full gallery width, two consecutive portraits
-   are shown as a pair, and a portrait without a portrait neighbour is centred on
-   its own. Use `display` only to override this. Photos are never cropped.
+   Galleries show square tiles, cropped to the centre of the photograph.
+   Clicking a tile opens the uncropped photograph in the lightbox.
 
 `featured` and `class` are legacy fields from jcfausto.com. They are kept for
 compatibility and ignored here.
