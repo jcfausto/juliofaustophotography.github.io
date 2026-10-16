@@ -11,10 +11,11 @@ legal: true
 
 ## In short
 
-This website has no user accounts, no analytics, no advertising, and sets no
-cookies. Its fonts and images are served from the website itself. Personal data
-is only processed to deliver the website, to answer your emails, and to fulfil
-print orders, as described below.
+This website has no user accounts and no advertising, and sets no cookies. Its
+fonts and images are served from the website itself. It uses a cookieless
+visitor count (Cloudflare Web Analytics) to see which pages are read. Personal
+data is only processed to deliver the website, to count visits, to answer your
+emails, and to fulfil print orders, as described below.
 
 ## Controller
 
@@ -38,6 +39,23 @@ The legal basis is Art. 6 (1) (f) GDPR: my legitimate interest in presenting
 this website reliably and securely. Data may be processed in the USA; GitHub
 participates in the EU-U.S. Data Privacy Framework. See GitHub's
 [privacy statement](https://docs.github.com/site-policy/privacy-policies/github-general-privacy-statement).
+
+## Web analytics
+
+To understand which pages are visited, this website uses Cloudflare Web
+Analytics, a service of Cloudflare, Inc., 101 Townsend Street, San Francisco,
+CA 94107, USA. A small script sends Cloudflare the page you visit, the page you
+came from, your browser and device type, and page loading times. Cloudflare
+uses your IP address only to work out your country and does not store it for
+this purpose. No cookies are set, and no profile of you is built across
+websites. I only see totals, such as page views per page and country.
+
+The legal basis is Art. 6 (1) (f) GDPR: my legitimate interest in knowing how
+the website is used, so I can improve it. Data may be processed in the USA;
+Cloudflare participates in the EU-U.S. Data Privacy Framework. You can object
+at any time, for example by blocking `static.cloudflareinsights.com` in your
+browser. See Cloudflare's
+[privacy policy](https://www.cloudflare.com/privacypolicy/).
 
 ## Email and print requests
 

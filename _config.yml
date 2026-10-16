@@ -10,6 +10,10 @@ locale: en_US
 logo: /assets/images/julio-portrait.png
 image: /assets/images/photography/architectural-and-cityscapes/20260606-Architectural-Photography.jpg
 
+# Cloudflare Web Analytics (cookieless). Loaded in production builds only;
+# leave empty to turn it off. Described in privacy.md.
+cloudflare_analytics_token: b22b8fa92f2649b189d1c7e281559b44
+
 social:
   name: Julio Cesar Fausto
   links:

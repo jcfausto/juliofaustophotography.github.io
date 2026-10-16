@@ -22,4 +22,7 @@
   <link rel="preload" href="{{ '/assets/fonts/space-grotesk-normal-latin.woff2' | relative_url }}" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="{{ '/assets/fonts/source-serif-4-normal-latin.woff2' | relative_url }}" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
+  {%- if jekyll.environment == "production" and site.cloudflare_analytics_token %}
+  <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "{{ site.cloudflare_analytics_token }}"}'></script>
+  {%- endif %}
 </head>
