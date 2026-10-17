@@ -48,7 +48,7 @@ docker compose up
 
 ## 2. Add a photograph
 
-1. Export a **web-sized JPEG** (long edge at most 2000px, sRGB) into the collection folder:
+1. Export a **web-sized JPEG** (long edge at most 2000px, sRGB, under 1 MB) into the collection folder. The same limit applies to essay and field note images:
 
    ```text
    assets/images/photography/<collection-slug>/<file>.jpg

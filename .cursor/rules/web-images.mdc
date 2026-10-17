@@ -1,0 +1,31 @@
+---
+description: Every image added to the site (galleries, essays, field notes) is downsampled to 2000px and kept under 1 MB
+alwaysApply: true
+---
+
+# Web image size
+
+Every photograph or image added under `assets/images/photography/` — gallery
+photos, essay images and field note images — must be a web copy:
+
+- Long edge at most **2000px** (never upscale), sRGB, JPEG.
+- File size **under 1 MB**. If a 2000px copy is still larger, lower the JPEG
+  quality (88 → 82 → 76) until it fits.
+- Never commit the full-size export, RAW files or print masters. Read the
+  user's export from its original location and write only the resized copy
+  into the repo; leave the original untouched.
+
+Do this before watermarking (the watermark scales with the image, and files
+are only marked once), then run the variants:
+
+```bash
+magick "<export>.jpg" -colorspace sRGB -resize '2000x2000>' -quality 88 \
+  assets/images/photography/<folder>/<file>.jpg
+magick identify -format '%wx%h %b\n' assets/images/photography/<folder>/<file>.jpg
+./scripts/watermark-photos assets/images/photography/<folder>
+./scripts/build-image-variants
+```
+
+If images already in the repo are too large and already watermarked, resize
+from an unwatermarked original, not from the marked file, so the mark isn't
+applied twice.
