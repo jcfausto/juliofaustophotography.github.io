@@ -1,7 +1,7 @@
 ---
 title: Architectural & Cityscapes
-description: Buildings, streets, and the geometry of cities.
-cover: /assets/images/photography/architectural-and-cityscapes/20260606-Architectural-Photography.jpg
-image: /assets/images/photography/architectural-and-cityscapes/20260606-Architectural-Photography.jpg
+description: The interplay of built structures, the people who use them, and the nature around them.
+cover: /assets/images/photography/architectural-and-cityscapes/20261016-_A160690.jpg
+image: /assets/images/photography/architectural-and-cityscapes/20261016-_A160690.jpg
 order: 2
 ---
