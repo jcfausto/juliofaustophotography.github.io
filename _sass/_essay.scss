@@ -540,11 +540,11 @@
 .prose .essay-aside img { width: 100%; margin: 0; border-radius: 0; }
 
 .essay-aside figcaption {
-  margin-top: 10px;
+  margin-top: 14px;
   font-family: var(--mono);
-  font-size: 12px;
-  line-height: 1.5;
-  color: var(--paper-dim);
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--caption);
 }
 
 @media (max-width: 720px) {

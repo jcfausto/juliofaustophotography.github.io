@@ -34,6 +34,13 @@
   base: /assets/images/variants/architectural-and-cityscapes/20261011-_A110621
   widths: [480, 1200, 1500]
   source_is_largest: true
+"/assets/images/photography/architectural-and-cityscapes/20261016-_A160690.jpg":
+  width: 2000
+  height: 1500
+  orientation: landscape
+  base: /assets/images/variants/architectural-and-cityscapes/20261016-_A160690
+  widths: [480, 1200, 2000]
+  source_is_largest: true
 "/assets/images/photography/essays/haus-der-kulturen-der-welt/20261011-A7307920.jpg":
   width: 1500
   height: 1000
@@ -250,6 +257,34 @@
   orientation: portrait
   base: /assets/images/variants/journal/i-think-im-getting-better-at-photography-and-thats-the-problem/20260606-_6060039
   widths: [480, 1200, 1500]
+  source_is_largest: true
+"/assets/images/photography/journal/three-photos-sixty-one-attempts/20261016-_A160642.jpg":
+  width: 2000
+  height: 1500
+  orientation: landscape
+  base: /assets/images/variants/journal/three-photos-sixty-one-attempts/20261016-_A160642
+  widths: [480, 1200, 2000]
+  source_is_largest: true
+"/assets/images/photography/journal/three-photos-sixty-one-attempts/20261016-_A160671.jpg":
+  width: 2000
+  height: 1500
+  orientation: landscape
+  base: /assets/images/variants/journal/three-photos-sixty-one-attempts/20261016-_A160671
+  widths: [480, 1200, 2000]
+  source_is_largest: true
+"/assets/images/photography/journal/three-photos-sixty-one-attempts/20261016-_A160690.jpg":
+  width: 2000
+  height: 1500
+  orientation: landscape
+  base: /assets/images/variants/journal/three-photos-sixty-one-attempts/20261016-_A160690
+  widths: [480, 1200, 2000]
+  source_is_largest: true
+"/assets/images/photography/journal/three-photos-sixty-one-attempts/20261016-_A160691.jpg":
+  width: 2000
+  height: 1500
+  orientation: landscape
+  base: /assets/images/variants/journal/three-photos-sixty-one-attempts/20261016-_A160691
+  widths: [480, 1200, 2000]
   source_is_largest: true
 "/assets/images/photography/journal/what-makes-a-great-photo-a-beginners-perspective/IMG_0324_IMBITUBA_BRAZIL_FEB_2024_BEACH_BLUE_SKY.JPG":
   width: 1500

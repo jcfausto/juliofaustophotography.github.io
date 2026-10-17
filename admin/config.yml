@@ -1,0 +1,183 @@
+# yaml-language-server: $schema=https://unpkg.com/@sveltia/cms/schema/sveltia-cms.json
+#
+# Local editor for this site: run `jekyll serve`, open
+# http://127.0.0.1:4000/admin/ in Chrome or Edge, and choose
+# "Work with Local Repository". The repository below is never contacted in
+# that mode; it only names the editor's local storage.
+
+backend:
+  name: github
+  repo: jcfausto/juliofaustophotography.github.io
+  branch: main
+
+media_folder: assets/images/photography
+public_folder: /assets/images/photography
+
+slug:
+  encoding: ascii
+  clean_accents: true
+
+output:
+  omit_empty_optional_fields: true
+
+collections:
+  - name: essays
+    label: Essays
+    label_singular: Essay
+    folder: _essays
+    create: true
+    slug: "{{slug}}"
+    summary: "{{title}} · {{status}}"
+    sortable_fields: [date, title]
+    media_folder: /assets/images/photography/essays/{{filename}}
+    public_folder: /assets/images/photography/essays/{{filename}}
+    fields:
+      - { name: title, label: Title, widget: string }
+      - { name: subtitle, label: Subtitle, widget: string, required: false }
+      - { name: date, label: Date, widget: datetime, type: date }
+      - name: status
+        label: Status
+        widget: select
+        required: false
+        default: draft
+        options:
+          - { label: "Draft (local preview only)", value: draft }
+          - { label: Published, value: published }
+      - name: format
+        label: Layout
+        widget: select
+        default: magazine
+        options:
+          - { label: Magazine, value: magazine }
+      - { name: light, label: "Light layout (facts and map at the end)", widget: boolean, required: false, default: true }
+      - { name: location, label: Location, widget: string, required: false }
+      - { name: subject, label: Subject, widget: string, required: false, hint: "Shown above the title, e.g. Architecture." }
+      - { name: description, label: Description, widget: text, hint: "One or two sentences for search engines, social previews and the essay list." }
+      - { name: intro, label: Intro, widget: text, required: false, hint: "Optional lede paragraph under the title." }
+      - { name: cover, label: Cover photograph, widget: image }
+      - { name: cover_alt, label: "Cover: description (alt text)", widget: string }
+      - { name: cover_caption, label: "Cover: caption", widget: string, required: false }
+      - { name: image, label: Social preview image, widget: image, required: false, hint: "Usually the same as the cover." }
+      - { name: featured, label: Featured on the homepage, widget: boolean, required: false, default: false }
+      - name: gallery
+        label: Related portfolio gallery
+        widget: relation
+        collection: galleries
+        search_fields: [title]
+        display_fields: [title]
+        required: false
+      - name: map
+        label: Location map
+        widget: object
+        required: false
+        collapsed: true
+        hint: "After setting the location, generate the map image with ./scripts/build-essay-map <essay-slug> <lat> <lon>."
+        fields:
+          - { name: lat, label: Latitude, widget: number, value_type: float }
+          - { name: lon, label: Longitude, widget: number, value_type: float }
+          - { name: label, label: Label, widget: string, required: false }
+      - { name: contents, label: "Show an \"In this essay\" list of the ## headings", widget: boolean, required: false, default: false }
+      - { name: numbered, label: "Number the ## headings (01, 02, …)", widget: boolean, required: false, default: false }
+      - { name: figure_numbers, label: "Label photographs Fig. 1, Fig. 2, …", widget: boolean, required: false, default: false }
+      - { name: video_url, label: Companion video (YouTube URL), widget: string, required: false }
+      - { name: video_title, label: Companion video title, widget: string, required: false }
+      - { name: video_poster, label: Companion video poster, widget: image, required: false }
+      - name: facts
+        label: At a glance
+        widget: list
+        required: false
+        summary: "{{label}}: {{value}}"
+        fields:
+          - { name: label, label: Label, widget: string }
+          - { name: value, label: Value, widget: string }
+      - name: sources
+        label: Sources and further reading
+        widget: list
+        required: false
+        summary: "{{title}}"
+        fields:
+          - { name: title, label: Title, widget: string }
+          - { name: url, label: Link, widget: string, required: false }
+          - { name: note, label: Note, widget: string, required: false }
+      - name: body
+        label: Text
+        widget: richtext
+        modes: [rich_text, raw]
+        editor_components: [essay-photo, essay-pair, essay-aside, essay-quote, essay-note, essay-placeholder]
+
+  - name: field_notes
+    label: Field Notes
+    label_singular: Field note
+    folder: _field_notes
+    create: true
+    slug: "{{slug}}"
+    summary: "{{title}}"
+    sortable_fields: [date, title]
+    media_folder: /assets/images/photography/journal/{{filename}}
+    public_folder: /assets/images/photography/journal/{{filename}}
+    fields:
+      - { name: title, label: Title, widget: string }
+      - { name: date, label: Date, widget: datetime, type: date }
+      - name: category
+        label: Category
+        widget: select
+        required: false
+        options: [Equipment, Reflections, Technique]
+      - { name: description, label: Description, widget: text }
+      - { name: image, label: Image, widget: image, required: false }
+      - name: body
+        label: Text
+        widget: richtext
+        modes: [raw, rich_text]
+        hint: "Opens as Markdown because older notes use kramdown image attributes, which the visual mode can rewrite."
+
+  - name: galleries
+    label: Galleries
+    label_singular: Gallery
+    folder: _galleries
+    create: true
+    slug: "{{slug}}"
+    summary: "{{title}}"
+    sortable_fields: [order, title]
+    media_folder: /assets/images/photography/{{filename}}
+    public_folder: /assets/images/photography/{{filename}}
+    fields:
+      - { name: title, label: Title, widget: string }
+      - { name: description, label: Description, widget: text }
+      - { name: cover, label: Cover photograph, widget: image }
+      - { name: image, label: Social preview image, widget: image, required: false }
+      - { name: order, label: Order on the portfolio page, widget: number, value_type: int }
+      - { name: body, label: Introduction, widget: richtext, required: false }
+
+  - name: data
+    label: Gallery photos
+    files:
+      - name: photos
+        label: Gallery photos
+        file: _data/photos.yml
+        fields:
+          - name: photos
+            label: Photographs
+            label_singular: Photograph
+            widget: list
+            root: true
+            collapsed: true
+            summary: "{{caption}} · {{collection}}"
+            hint: "Order here is the order on the gallery page."
+            fields:
+              - { name: src, label: Photograph, widget: image }
+              - { name: alt, label: "Description (alt text)", widget: string }
+              - { name: caption, label: Caption, widget: string, required: false }
+              - name: collection
+                label: Gallery
+                widget: relation
+                collection: galleries
+                search_fields: [title]
+                display_fields: [title]
+              - name: print
+                label: Print
+                widget: object
+                required: false
+                collapsed: true
+                fields:
+                  - { name: id, label: Print ID, widget: string }

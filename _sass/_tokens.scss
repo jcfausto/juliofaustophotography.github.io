@@ -2,6 +2,7 @@
   --ink: #15131c;
   --paper: #ffffff;
   --paper-dim: #6b6673;
+  --caption: #4d4855;
   --paper-warm: #f4f1ec;
   --line: rgba(21, 19, 28, 0.12);
 
@@ -22,6 +23,7 @@
   --gutter: 32px;
   --w-text: 760px;
   --w-gallery: 1180px;
+  --image-space: 2.75em;   // space above and below images in running text
 }
 
 @media (max-width: 720px) {

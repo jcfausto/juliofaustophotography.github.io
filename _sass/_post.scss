@@ -112,10 +112,12 @@
   font-style: italic;
 }
 
-.prose img {
-  border-radius: 10px;
-  margin: 1.5em 0;
-}
+.prose img { border-radius: 10px; }
+
+// Markdown images (`![](…)`) arrive wrapped in a paragraph; space that
+// paragraph, not the image, so the gap doesn't collapse into the text margin.
+.prose > p:has(> img:only-child) { margin-block: var(--image-space); }
+.prose > :is(h1, h2, h3, h4) + p:has(> img:only-child) { margin-top: 1em; }
 
 .prose code {
   font-family: var(--mono);

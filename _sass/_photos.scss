@@ -191,7 +191,7 @@
   inset: auto 0 0;
   padding: 28px 14px 14px;
   font-family: var(--mono);
-  font-size: 11px;
+  font-size: 12.5px;
   line-height: 1.5;
   color: #fff;
   background: linear-gradient(transparent, rgba(0, 0, 0, .65));
@@ -211,11 +211,11 @@
 .photo-caption,
 .essay-photo figcaption,
 .essay-pair figcaption {
-  margin-top: 12px;
+  margin-top: 14px;
   font-family: var(--mono);
-  font-size: 12px;
-  line-height: 1.5;
-  color: var(--paper-dim);
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--caption);
   text-align: center;
 }
 
@@ -278,8 +278,8 @@
 
 .lightbox figcaption {
   font-family: var(--mono);
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.75);
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.85);
   text-align: center;
 }
 

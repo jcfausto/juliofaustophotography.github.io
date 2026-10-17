@@ -22,7 +22,7 @@ backend, database, CMS, or JavaScript framework.
 8. [Configure the custom domain](#8-configure-the-custom-domain)
 9. [Migrate the old URLs](#9-migrate-the-old-urls)
 
-Also: [Project layout](#project-layout) · [Editable copy](#editable-copy) · [Private originals](#private-originals)
+Also: [Visual editor](#visual-editor) · [Project layout](#project-layout) · [Editable copy](#editable-copy) · [Private originals](#private-originals)
 
 ## 1. Local setup
 
@@ -359,6 +359,43 @@ map, the redirect strategy (`jekyll-redirect-from` stubs on jcfausto.com and
 their limits compared with HTTP 301s), the exact patch for `jcfausto.github.io`,
 and the launch checklist. The legacy `juliofaustophotography.com/blog/<slug>`
 URLs already redirect to `/field-notes/<slug>/` from this repository.
+
+## Visual editor
+
+[Sveltia CMS](https://github.com/sveltia/sveltia-cms) (beta) gives a visual
+editor for essays, field notes, galleries and the gallery photo list. It runs
+in the browser and edits the files in this folder directly; nothing is sent
+anywhere.
+
+1. `bundle exec jekyll serve`
+2. Open <http://127.0.0.1:4000/admin/> in Chrome or Edge (Safari and Firefox
+   can't open local folders).
+3. Choose **Work with Local Repository** and pick this repository's folder.
+
+Saving writes the Markdown file; Jekyll rebuilds and the page updates at
+the usual URL. Review the result with `git diff` before committing, as with
+any other edit.
+
+- Essay photographs, pairs, asides, pull quotes, writing notes and
+  placeholders are blocks in the editor (the **+** button). They are saved as
+  the same `{% include essay-… %}` tags described in
+  [Publish an essay](#4-publish-an-essay).
+- Two-column paragraphs (`{: .essay-columns}` and
+  `<div class="essay-columns" markdown="1">`) must be written in the editor's
+  Markdown mode; the visual mode does not keep them.
+- Field notes open in Markdown mode, because older notes use kramdown image
+  attributes.
+- Uploaded images go to `assets/images/photography/essays/<essay>/` (or
+  `journal/<note>/`). Run `./scripts/build-image-variants` afterwards, then
+  `./scripts/build-essay-map` if you set a new essay location.
+- The editor is configured in `admin/config.yml`; the essay blocks are in
+  `admin/editor-components.js`. If an include gains a new parameter, add it
+  there too, or the editor drops it on save.
+
+The `admin/` folder is published with the site but contains no content or
+credentials. Its GitHub sign-in options need your own GitHub token or an
+OAuth app, so visitors can't use it; the local workflow above doesn't need
+either.
 
 ## Project layout
 

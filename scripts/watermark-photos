@@ -4,6 +4,10 @@
 #   ./scripts/watermark-photos            # collections only
 #   ./scripts/watermark-photos --journal  # also field note images
 #   ./scripts/watermark-photos --essays   # also essay images
+#   ./scripts/watermark-photos <folder>…  # only these folders
+#
+# The --journal folder also holds product shots and third-party images, so
+# prefer marking a single note's folder.
 #
 # Files already marked (JPEG comment "watermarked") are skipped.
 
@@ -30,17 +34,25 @@ mkdir -p "$FONTCONFIG_CACHE"
 
 include_journal=0
 include_essays=0
+folders=()
 for arg in "$@"; do
   case "$arg" in
     --journal) include_journal=1 ;;
     --essays) include_essays=1 ;;
     -h|--help)
-      echo "Usage: $0 [--journal] [--essays]"
+      echo "Usage: $0 [--journal] [--essays] | <folder>…"
       exit 0
       ;;
-    *)
+    -*)
       echo "Unknown option: $arg" >&2
       exit 1
+      ;;
+    *)
+      if [[ ! -d "$arg" ]]; then
+        echo "Not a folder: $arg" >&2
+        exit 1
+      fi
+      folders+=("$arg")
       ;;
   esac
 done
@@ -83,11 +95,19 @@ collect_files() {
 }
 
 files=()
-for slug in "${COLLECTIONS[@]}"; do
-  while IFS= read -r f; do
-    [[ -n "$f" ]] && files+=("$f")
-  done < <(collect_files "$PHOTO/$slug")
-done
+if [[ "${#folders[@]}" -gt 0 ]]; then
+  for dir in "${folders[@]}"; do
+    while IFS= read -r f; do
+      [[ -n "$f" ]] && files+=("$(cd "$(dirname "$f")" && pwd)/$(basename "$f")")
+    done < <(collect_files "$dir")
+  done
+else
+  for slug in "${COLLECTIONS[@]}"; do
+    while IFS= read -r f; do
+      [[ -n "$f" ]] && files+=("$f")
+    done < <(collect_files "$PHOTO/$slug")
+  done
+fi
 
 if [[ "$include_journal" -eq 1 ]]; then
   while IFS= read -r f; do

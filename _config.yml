@@ -58,6 +58,10 @@ defaults:
     values:
       layout: default
       facet: photo
+  - scope:
+      path: admin
+    values:
+      sitemap: false
 
 exclude:
   - Dockerfile
