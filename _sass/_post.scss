@@ -104,6 +104,8 @@
 .prose ol { padding-left: 1.25em; }
 
 .prose li + li { margin-top: .35em; }
+.prose li > * + * { margin-top: 1.15em; }
+.prose li:has(> p) + li { margin-top: 1.15em; }
 
 .prose blockquote {
   border-left: 2px solid var(--accent-mark);

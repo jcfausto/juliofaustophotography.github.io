@@ -44,21 +44,21 @@ The exercise had three specific goals:
 
 1. **Photograph the building within its landscape**
 
-The first photograph should show the building in its surroundings and its relationship with the landscape.
+   The first photograph should show the building in its surroundings and its relationship with the landscape.
 
-This is often an important image in architectural photography, as it helps establish the building's context and reveals how it relates to the surrounding urban environment.
+   This is often an important image in architectural photography, as it helps establish the building's context and reveals how it relates to the surrounding urban environment.
 
 2. **Show human scale and movement**
 
-The second photograph should communicate the monumental scale of the building.
+   The second photograph should communicate the monumental scale of the building.
 
-By including people in carefully chosen positions within the composition, I wanted to emphasise the building's proportions and its relationship with the people who experience it.
+   By including people in carefully chosen positions within the composition, I wanted to emphasise the building's proportions and its relationship with the people who experience it.
 
 3. **Capture "The Wings"**
 
-The third photograph should focus on the building's distinctive roof, whose sweeping shape resembles a pair of wings.
+   The third photograph should focus on the building's distinctive roof, whose sweeping shape resembles a pair of wings.
 
-My intention was to capture not only the architectural form but also the symbolism behind it: the idea of freedom expressed through the building's design.
+   My intention was to capture not only the architectural form but also the symbolism behind it: the idea of freedom expressed through the building's design.
 
 Three photographs, three clear objectives. What could possibly go wrong?
 
@@ -92,7 +92,7 @@ Well, since I was already there, why not take a few dusk photographs? A few phot
 
 Not three. Sixty-one.
 
-# Conclusion and Lessons Learned
+# What I Learned
 
 So, did I fail the exercise?
 
