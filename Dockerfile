@@ -14,8 +14,8 @@ RUN apk add --no-cache build-base \
 # Copy the entire Jekyll project to the container
 COPY . /app/
 
-# Expose the default Jekyll port
-EXPOSE 4000
+# Expose the default Jekyll and LiveReload ports
+EXPOSE 4000 35729
 
 # Command to run the Jekyll server
 CMD ["bundle", "exec", "jekyll", "serve", "--host", "0.0.0.0", "--livereload"]
