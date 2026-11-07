@@ -260,7 +260,8 @@ Essay images go in `assets/images/photography/essays/<slug>/`. Run
 
 **Drafts:** essays with `status: draft` appear with `jekyll serve` (development)
 and are removed entirely from production builds, including pages, lists, the
-sitemap, and the feed. The logic lives in `_plugins/essay_drafts.rb`.
+sitemap, and the feed. Field notes work the same way. The logic lives in
+`_plugins/drafts.rb`.
 
 Essays are listed at `/essays/`, newest first, with `featured: true` essays
 ahead of the rest. They are published at `/essays/<slug>/` and in
@@ -279,6 +280,7 @@ Create `_field_notes/<slug>.md`:
 ---
 title: "The title"
 date: 2026-11-10
+status: draft            # remove (or set to published) to publish
 language: en             # pt for Portuguese; non-English is labelled in lists
 category: Fieldwork      # optional: Fieldwork · Technique · Equipment · Reflections · Behind the Scenes
 description: "One or two sentences for the list, search, and social previews."
@@ -436,8 +438,6 @@ archives. `.gitignore` blocks common RAW and master formats (`*.ARW`, `*.NEF`,
 `exports/`, and `*.zip`. Keep originals outside the repository, or in
 `_originals/` locally, and publish only web-sized, watermarked JPEGs.
 
-## Prints
-
 ## Copyright metadata
 
 `./scripts/watermark-photos` also writes the rights metadata into every photo
@@ -459,6 +459,8 @@ The site also opts out of text and data mining for AI training in a
 machine-readable way: a `tdm-reservation` meta tag in `_includes/head.html`
 and `/.well-known/tdmrep.json` (TDMRep), alongside the AI crawler rules in
 `robots.txt`.
+
+## Prints
 
 To make a portfolio photo printable, add a `print` block to its entry in
 `_data/photos.yml`:

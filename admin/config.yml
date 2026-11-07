@@ -111,13 +111,21 @@ collections:
     folder: _field_notes
     create: true
     slug: "{{slug}}"
-    summary: "{{title}}"
+    summary: "{{title}} · {{status}}"
     sortable_fields: [date, title]
     media_folder: /assets/images/photography/journal/{{filename}}
     public_folder: /assets/images/photography/journal/{{filename}}
     fields:
       - { name: title, label: Title, widget: string }
       - { name: date, label: Date, widget: datetime, type: date }
+      - name: status
+        label: Status
+        widget: select
+        required: false
+        default: draft
+        options:
+          - { label: "Draft (local preview only)", value: draft }
+          - { label: Published, value: published }
       - name: category
         label: Category
         widget: select

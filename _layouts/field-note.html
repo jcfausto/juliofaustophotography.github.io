@@ -17,6 +17,7 @@ layout: default
     <div class="eyebrow">
       {{ site.data.site.field_notes.eyebrow }}
       {%- if page.category %} · {{ page.category | escape }}{% endif %}
+      {%- if page.status == "draft" %} · Draft{% endif %}
     </div>
     <h1 class="title">{{ page.title | escape }}</h1>
     <div class="meta-line post-meta">
