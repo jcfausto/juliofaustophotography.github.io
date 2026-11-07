@@ -216,6 +216,48 @@
   base: /assets/images/variants/journal/getting-started-with-a-new-hobby/20230305-DSC00029
   widths: [480, 1080]
   source_is_largest: true
+"/assets/images/photography/journal/how-much-planning-is-too-much/in-search-of-the-old-oak-video-thumbnail.jpg":
+  width: 1672
+  height: 941
+  orientation: landscape
+  base: /assets/images/variants/journal/how-much-planning-is-too-much/in-search-of-the-old-oak-video-thumbnail
+  widths: [480, 1200, 1672]
+  source_is_largest: true
+"/assets/images/photography/journal/how-much-planning-is-too-much/om-1-mark-ii-footage-subject-out-of-focus.jpg":
+  width: 2000
+  height: 1130
+  orientation: landscape
+  base: /assets/images/variants/journal/how-much-planning-is-too-much/om-1-mark-ii-footage-subject-out-of-focus
+  widths: [480, 1200, 2000]
+  source_is_largest: true
+"/assets/images/photography/journal/how-much-planning-is-too-much/om1-mark2-focus-ring-clutch-in-auto-focus.jpg":
+  width: 1500
+  height: 2000
+  orientation: portrait
+  base: /assets/images/variants/journal/how-much-planning-is-too-much/om1-mark2-focus-ring-clutch-in-auto-focus
+  widths: [480, 1200, 1500]
+  source_is_largest: true
+"/assets/images/photography/journal/how-much-planning-is-too-much/om1-mark2-focus-ring-clutch-in-manual-focus.jpg":
+  width: 1500
+  height: 2000
+  orientation: portrait
+  base: /assets/images/variants/journal/how-much-planning-is-too-much/om1-mark2-focus-ring-clutch-in-manual-focus
+  widths: [480, 1200, 1500]
+  source_is_largest: true
+"/assets/images/photography/journal/how-much-planning-is-too-much/om1-mark2-video-settings-continuous-autofocus-selected-and-subject-detection.jpg":
+  width: 2000
+  height: 1439
+  orientation: landscape
+  base: /assets/images/variants/journal/how-much-planning-is-too-much/om1-mark2-video-settings-continuous-autofocus-selected-and-subject-detection
+  widths: [480, 1200, 2000]
+  source_is_largest: true
+"/assets/images/photography/journal/how-much-planning-is-too-much/what-went-wrong-thumbnail.jpg":
+  width: 1671
+  height: 941
+  orientation: landscape
+  base: /assets/images/variants/journal/how-much-planning-is-too-much/what-went-wrong-thumbnail
+  widths: [480, 1200, 1671]
+  source_is_largest: true
 "/assets/images/photography/journal/i-am-selling-my-nikon-z7ii-heres-why/20251026-Z72_0025.jpg":
   width: 1500
   height: 2250
