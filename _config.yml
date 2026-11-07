@@ -63,6 +63,10 @@ defaults:
     values:
       sitemap: false
 
+# Text-and-data-mining opt-out (TDMRep), alongside the meta tag in head.html.
+include:
+  - .well-known
+
 exclude:
   - Dockerfile
   - docker-compose.yml

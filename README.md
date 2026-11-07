@@ -26,7 +26,7 @@ Also: [Visual editor](#visual-editor) · [Project layout](#project-layout) · [E
 
 ## 1. Local setup
 
-You need Ruby 3.2 and Bundler. ImageMagick (`magick`) is only required for the image scripts.
+You need Ruby 3.2 and Bundler. ImageMagick (`magick`) and ExifTool (`exiftool`) are only required for the image scripts.
 
 ```bash
 bundle install
@@ -54,7 +54,7 @@ docker compose up
    assets/images/photography/<collection-slug>/<file>.jpg
    ```
 
-2. Burn in the corner copyright. Files that are already marked are skipped, so it is safe to run repeatedly:
+2. Burn in the corner copyright and embed the rights metadata (see [Copyright metadata](#copyright-metadata)). Files that are already marked are skipped, so it is safe to run repeatedly:
 
    ```bash
    ./scripts/watermark-photos             # collections
@@ -315,7 +315,8 @@ For every JPEG under `assets/images/photography/`, the script:
 - writes 480 / 1200 / 2000px **WebP** and **JPEG** variants to `assets/images/variants/<same path>-<width>.{webp,jpg}`;
 - never upscales. When the source is narrower than 2000px, its own width is the
   largest size, and the source JPEG is used for that size instead of a re-encoded copy;
-- strips metadata from the variants;
+- strips metadata from the variants, then adds the rights block from
+  `scripts/copyright.xmp` to variants of watermarked sources;
 - regenerates `_data/images.yml` with each image's intrinsic width, height,
   orientation, and available widths.
 
@@ -436,6 +437,28 @@ archives. `.gitignore` blocks common RAW and master formats (`*.ARW`, `*.NEF`,
 `_originals/` locally, and publish only web-sized, watermarked JPEGs.
 
 ## Prints
+
+## Copyright metadata
+
+`./scripts/watermark-photos` also writes the rights metadata into every photo
+it marks: EXIF Artist and Copyright, IPTC By-line and Copyright Notice, and
+the XMP block in `scripts/copyright.xmp` (creator, rights notice, link to
+`LICENSE`, usage terms, contact, and the PLUS "data mining prohibited except
+search engine indexing" flag). It replaces any existing XMP and drops the
+export thumbnails, which predate the watermark. Already-marked photos that
+lack the metadata are only tagged, never marked again.
+
+`./scripts/build-image-variants` copies the XMP block into the JPEG and WebP
+variants of watermarked sources. Unmarked images, such as product shots and
+third-party photos, get no rights metadata. After editing
+`scripts/copyright.xmp`, re-tag the sources with
+`./scripts/watermark-photos --retag --essays` (plus any marked field note
+folders), then run `./scripts/build-image-variants`.
+
+The site also opts out of text and data mining for AI training in a
+machine-readable way: a `tdm-reservation` meta tag in `_includes/head.html`
+and `/.well-known/tdmrep.json` (TDMRep), alongside the AI crawler rules in
+`robots.txt`.
 
 To make a portfolio photo printable, add a `print` block to its entry in
 `_data/photos.yml`:

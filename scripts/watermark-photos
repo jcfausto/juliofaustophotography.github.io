@@ -1,21 +1,31 @@
 #!/usr/bin/env bash
-# Burn a corner copyright into published photography JPEGs.
+# Burn a corner copyright into published photography JPEGs and embed the
+# rights metadata: EXIF Artist/Copyright, IPTC, and the XMP block in
+# scripts/copyright.xmp (creator, rights, licence URL, AI-training opt-out).
 #
 #   ./scripts/watermark-photos            # collections only
 #   ./scripts/watermark-photos --journal  # also field note images
 #   ./scripts/watermark-photos --essays   # also essay images
 #   ./scripts/watermark-photos <folder>…  # only these folders
+#   ./scripts/watermark-photos --retag …  # rewrite metadata on marked files
 #
 # The --journal folder also holds product shots and third-party images, so
-# prefer marking a single note's folder.
+# prefer marking a single note's folder: everything selected is claimed as
+# Julio's work.
 #
-# Files already marked (JPEG comment "watermarked") are skipped.
+# Files already marked (JPEG comment "watermarked") are not marked again;
+# they only get the metadata if it is missing. Replaces any existing XMP.
 
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 PHOTO="$ROOT/assets/images/photography"
-TEXT="© Julio Cesar Fausto"
+XMP="$ROOT/scripts/copyright.xmp"
+OWNER="Julio Cesar Fausto"
+TEXT="© $OWNER"
+NOTICE="© $OWNER. All rights reserved."
+# EXIF text fields are ASCII.
+EXIF_NOTICE="Copyright $OWNER. All rights reserved."
 FLAG="watermarked"
 
 COLLECTIONS=(
@@ -29,18 +39,25 @@ if ! command -v magick >/dev/null 2>&1; then
   exit 1
 fi
 
+if ! command -v exiftool >/dev/null 2>&1; then
+  echo "Need ExifTool (exiftool) to embed copyright metadata." >&2
+  exit 1
+fi
+
 export FONTCONFIG_CACHE="${TMPDIR:-/tmp}/fontconfig-cache"
 mkdir -p "$FONTCONFIG_CACHE"
 
 include_journal=0
 include_essays=0
+retag=0
 folders=()
 for arg in "$@"; do
   case "$arg" in
     --journal) include_journal=1 ;;
     --essays) include_essays=1 ;;
+    --retag) retag=1 ;;
     -h|--help)
-      echo "Usage: $0 [--journal] [--essays] | <folder>…"
+      echo "Usage: $0 [--retag] [--journal] [--essays] | <folder>…"
       exit 0
       ;;
     -*)
@@ -61,6 +78,25 @@ already_marked() {
   local comment
   comment="$(magick identify -format '%c' "$1" 2>/dev/null || true)"
   [[ "$comment" == *"$FLAG"* ]]
+}
+
+already_tagged() {
+  [[ "$(exiftool -s3 -EXIF:Copyright -ThumbnailImage -PhotoshopThumbnail "$1" 2>/dev/null)" == "$EXIF_NOTICE" ]]
+}
+
+# The Photoshop block and EXIF IFD1 hold export-time thumbnails that predate
+# the watermark, so they are dropped.
+tag() {
+  exiftool -q -overwrite_original \
+    -Photoshop:all= \
+    -IFD1:all= \
+    "-XMP<=$XMP" \
+    -EXIF:Artist="$OWNER" \
+    -EXIF:Copyright="$EXIF_NOTICE" \
+    -IPTC:CodedCharacterSet=UTF8 \
+    -IPTC:By-line="$OWNER" \
+    -IPTC:CopyrightNotice="$NOTICE" \
+    "$1"
 }
 
 watermark() {
@@ -128,17 +164,26 @@ fi
 
 echo "Watermarking ${#files[@]} photo(s)…"
 marked=0
+tagged=0
 skipped=0
 failed=0
 
 for src in "${files[@]}"; do
   rel="${src#"$ROOT/"}"
   if already_marked "$src"; then
-    echo "  skip  $rel"
-    skipped=$((skipped + 1))
+    if [[ "$retag" -eq 0 ]] && already_tagged "$src"; then
+      echo "  skip  $rel"
+      skipped=$((skipped + 1))
+    elif tag "$src"; then
+      echo "  tag   $rel"
+      tagged=$((tagged + 1))
+    else
+      echo "  fail  $rel" >&2
+      failed=$((failed + 1))
+    fi
     continue
   fi
-  if watermark "$src"; then
+  if watermark "$src" && tag "$src"; then
     echo "  mark  $rel"
     marked=$((marked + 1))
   else
@@ -147,7 +192,7 @@ for src in "${files[@]}"; do
   fi
 done
 
-echo "Done. marked $marked, skipped $skipped, failed $failed."
+echo "Done. marked $marked, tagged $tagged, skipped $skipped, failed $failed."
 if [[ "$failed" -gt 0 ]]; then
   exit 1
 fi

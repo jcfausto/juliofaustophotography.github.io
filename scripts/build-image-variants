@@ -10,6 +10,8 @@
 # Sources are never upscaled; the largest variant is min(source width, 2000).
 # When the source is no wider than 2000px, the source JPEG itself is the
 # largest JPEG candidate (source_is_largest: true) and only WebP is written.
+# Variants are stripped of metadata; variants of watermarked sources then get
+# the rights block in scripts/copyright.xmp, and are rebuilt when it changes.
 
 set -euo pipefail
 
@@ -17,6 +19,7 @@ ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 SRC_DIR="$ROOT/assets/images/photography"
 OUT_DIR="$ROOT/assets/images/variants"
 DATA="$ROOT/_data/images.yml"
+XMP="$ROOT/scripts/copyright.xmp"
 WIDTHS=(480 1200 2000)
 JPEG_QUALITY=82
 WEBP_QUALITY=80
@@ -45,7 +48,7 @@ export FONTCONFIG_CACHE="${TMPDIR:-/tmp}/fontconfig-cache"
 mkdir -p "$FONTCONFIG_CACHE" "$OUT_DIR"
 
 needs_build() {
-  [[ "$force" -eq 1 || ! -f "$2" || "$1" -nt "$2" ]]
+  [[ "$force" -eq 1 || ! -f "$2" || "$1" -nt "$2" || ( -n "$3" && "$3" -nt "$2" ) ]]
 }
 
 tmp_data="$(mktemp)"
@@ -80,18 +83,21 @@ while IFS= read -r src; do
   done
   widths+=("$largest")
 
+  rights=""
+  [[ "$(magick identify -format '%c' "$src[0]" 2>/dev/null)" == *watermarked* ]] && rights="$XMP"
+
   for vw in "${widths[@]}"; do
     jpg="$base-$vw.jpg"
     webp="$base-$vw.webp"
     # At full source width the original JPEG is served as-is; only WebP is added.
-    if (( vw < w )) && needs_build "$src" "$jpg"; then
-      magick "$src[0]" -auto-orient -resize "${vw}x>" -strip \
+    if (( vw < w )) && needs_build "$src" "$jpg" "$rights"; then
+      magick "$src[0]" -auto-orient -resize "${vw}x>" -strip ${rights:+-profile "$rights"} \
         -sampling-factor 4:2:0 -interlace JPEG -quality "$JPEG_QUALITY" \
         -set comment "watermarked" "$jpg"
       built=$((built + 1))
     fi
-    if needs_build "$src" "$webp"; then
-      magick "$src[0]" -auto-orient -resize "${vw}x>" -strip \
+    if needs_build "$src" "$webp" "$rights"; then
+      magick "$src[0]" -auto-orient -resize "${vw}x>" -strip ${rights:+-profile "$rights"} \
         -quality "$WEBP_QUALITY" -define webp:method=6 "$webp"
       built=$((built + 1))
     fi
