@@ -1,7 +1,7 @@
 ---
 title: How Much Planning Is Too Much?
 date: 2026-11-07
-status: draft
+status: published
 category: Equipment
 description: Last weekend, I went out to explore an unfamiliar woodland in search of centuries-old oak trees. I eventually found the tree I was looking for, but along the way, I learned an important lesson about planning, preparation, and knowing my equipment.
 image: /assets/images/photography/journal/how-much-planning-is-too-much/what-went-wrong-thumbnail.jpg
